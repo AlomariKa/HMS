@@ -5,10 +5,6 @@ from django.contrib import messages # This module is used to display messages to
 from .forms import UserRegisterForm
 from django.urls import reverse
 
-def home(request):
-    return render(request, 'accounts/home.html')
-
-
 # User Authentication #
 def register(request):
     if request.method == 'POST':
