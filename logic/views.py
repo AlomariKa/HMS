@@ -1,10 +1,13 @@
 # Classes/views.py
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from .forms import PatientForm, AdministrativeStaffForm, HealthcareProviderForm,AppointmentForm
 from .models import Appointment,Patient, AdministrativeStaff,HealthcareProvider
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+
+
+
 
 
 @login_required # ensures that only authenticated users can acces
@@ -14,7 +17,7 @@ def patient_profile(request):
         patient = user_profile.patient
     except Patient.DoesNotExist:
         # Redirect to profile creation page if the user does not have a Patient profile
-        return redirect(reverse('logic:create_patient_profile'))  # You need to create this view
+        return redirect('logic:create_patient_profile')  # You need to create this view
 
     if request.method == 'POST':
         form = PatientForm(request.POST, instance=patient)
@@ -23,7 +26,7 @@ def patient_profile(request):
         if form.is_valid():
             form.save()
 
-            return redirect(reverse('logic:patient_profile'))  # Redirect to the same page to see updated info
+            return redirect('logic:patient_profile')  # Redirect to the same page to see updated info
     else:
         form = PatientForm(instance=patient)
 
@@ -37,11 +40,13 @@ def create_patient_profile(request):
             patient = form.save(commit=False) # save the form data to a Patient object without committing it to the database immediately.
             patient.user_profile = request.user.userprofile  # Link to the user profile
             patient.save()
-            return redirect(reverse('logic:patient_profile'))  # Redirect to the patient profile
+            return redirect('logic:patient_profile')  # Redirect to the patient profile
     else:
         form = PatientForm()
 
     return render(request, 'CreateProfiles/create_patient_profile.html', {'form': form})
+
+
 
 @login_required
 def admin_profile(request):
@@ -49,12 +54,12 @@ def admin_profile(request):
         user_profile = request.user.userprofile  # Access the UserProfile
         admin = user_profile.administrativestaff    # Assuming the user has an Admin profile
     except AdministrativeStaff.DoesNotExist:
-        return redirect(reverse('logic:create_admin_profile'))  # You need to create this view
+        return redirect('logic:create_admin_profile')  # You need to create this view
     if request.method == 'POST':
         form = AdministrativeStaffForm(request.POST, instance=admin)
         if form.is_valid():
             form.save()
-            return redirect(reverse('logic:admin_profile'))  # Redirect to the same page to see updated info
+            return redirect('logic:admin_profile')  # Redirect to the same page to see updated info
     else:
         form = AdministrativeStaffForm(instance=admin)
 
@@ -67,7 +72,7 @@ def create_admin_profile(request):
             admin = form.save(commit=False)
             admin.user_profile = request.user.userprofile  # Link to the user profile
             admin.save()
-            return redirect(reverse('logic:admin_profile'))  # Redirect to the admin profile
+            return redirect('logic:admin_profile')  # Redirect to the admin profile
     else:
         form = AdministrativeStaffForm()
 
@@ -79,13 +84,13 @@ def provider_profile(request):
         user_profile = request.user.userprofile
         provider = user_profile.healthcareprovider  # Access the Provider through UserProfile
     except HealthcareProvider.DoesNotExist:
-        return redirect(reverse('logic:create_provider_profile'))  # You need to create this view
+        return redirect('logic:create_provider_profile')  # You need to create this view
 
     if request.method == 'POST':
         form = HealthcareProviderForm(request.POST, instance=provider)
         if form.is_valid():
             form.save()
-            return redirect(reverse('logic:provider_profile'))  # Redirect to the same page to see updated info
+            return redirect('logic:provider_profile')  # Redirect to the same page to see updated info
     else:
         form = HealthcareProviderForm(instance=provider)
 
@@ -99,7 +104,7 @@ def create_provider_profile(request):
             provider = form.save(commit=False)
             provider.user_profile = request.user.userprofile  # Link to the user profile
             provider.save()
-            return redirect(reverse('logic:provider_profile'))  # Redirect to the provider profile
+            return redirect('logic:provider_profile')  # Redirect to the provider profile
     else:
         form = HealthcareProviderForm()
 
@@ -117,7 +122,7 @@ def schedule_appointment(request):
             appointment = form.save(commit=False)
             appointment.patient = patient  # This links the appointment to the specific patient.
             appointment.save()
-            return redirect(reverse('logic:patient_dashboard'))  # Redirect to view upcoming appointments
+            return redirect('logic:patient_dashboard')  # Redirect to view upcoming appointments
     else:
         form = AppointmentForm()
 
@@ -130,7 +135,7 @@ def patient_dashboard(request):
         patient = user_profile.patient  # Access the Patient through UserProfile
         appointments = patient.appointment_set.all()  # because of foreign key Django provides a way to access all related Appointment objects through the patient instance.
     except Patient.DoesNotExist:
-        return redirect(reverse('logic:create_patient_profile'))  # Redirect to profile creation if not found
+        return redirect('logic:create_patient_profile')  # Redirect to profile creation if not found
     return render(request, 'appointments/patient_dashboard.html', {'appointments': appointments})
 
 def appointments_list_admin(request):
@@ -142,7 +147,7 @@ def appointments_list_admin(request):
         appointment = Appointment.objects.get(id=appointment_id)
         appointment.status = new_status
         appointment.save()
-        return redirect(reverse('logic:appointments_list_admin'))
+        return redirect('logic:appointments_list_admin')
     return render(request, 'appointments/appointments_list_admin.html', {'appointments': appointments})
 
 def appointments_list_provider(request):

@@ -1,0 +1,21 @@
+<!-- templates/accounts/delete_profile.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Profile</h1>
+        <p>Are you sure you want to delete your profile?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete Profile</button>
+            <a href="{% url 'logic:patient_profile' %}" class="btn btn-secondary">Cancel</a>  <!-- Link to go back to the patient profile -->
+        </form>
+    </div>
+</body>
+</html>

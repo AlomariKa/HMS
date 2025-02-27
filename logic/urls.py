@@ -13,7 +13,7 @@ appointments_list_provider,
  provider_profile,
  admin_profile)
 
-app_name = 'logic'
+app_name = 'logicHSM'
 
 urlpatterns = [
     path('appointments/schedule/', schedule_appointment, name='schedule_appointment'),
