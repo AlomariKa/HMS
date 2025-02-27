@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import Patient, AdministrativeStaff, HealthcareProvider, Appointment
+from .models import Patient, AdministrativeStaff, HealthcareProvider, Appointment, Prescription
 
 class PatientForm(forms.ModelForm):
     class Meta: # help give me information and specify things
@@ -26,3 +26,8 @@ class AppointmentForm(forms.ModelForm):
             'time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control', 'disabled': 'disabled'}),
             'provider': forms.Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
         } # When a field is disabled, users can see the field and its value, but they cannot interact with it.
+
+class PrescriptionForm(forms.ModelForm):
+    class Meta:
+        model = Prescription
+        fields = ['patient', 'provider', 'medication', 'dosage', 'instructions']

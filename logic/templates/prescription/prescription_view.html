@@ -1,0 +1,53 @@
+<!-- templates/prescriptions/prescription_view.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prescription List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Prescription List</h1>
+        <a href="{% url 'logic:add_prescription' %}" class="btn btn-primary">Add Prescription</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date Created</th>
+                    <th>Patient Name</th>
+                    <th>Patient Age</th>
+                    <th>Provider Name</th>
+                    <th>Medication</th>
+                    <th>Dosage</th>
+                    <th>Instructions</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prescription in prescriptions %}
+                <tr>
+                    <td>{{ prescription.date_created }}</td>
+                    <td>{{ prescription.patient.name }}</td>
+                    <td>{{ prescription.patient.age }}</td>
+                    <td>{{ prescription.provider.name }}</td>
+                    <td>{{ prescription.medication }}</td>
+                    <td>{{ prescription.dosage }}</td>
+                    <td>{{ prescription.instructions }}</td>
+                    <td>
+                        <a href="{% url 'logic:edit_prescription' prescription.id %}" class="btn btn-warning">Edit</a>
+                      <a href="{% url 'logic:pharmacy'%}" class="btn btn-warning">Send</a>
+
+                        <form action="{% url 'logic:delete_prescription' prescription.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      <a href="{% url 'logic:provider_profile' %}">Profile Page</a>
+    </div>
+</body>
+</html>

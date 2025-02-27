@@ -45,3 +45,14 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f"Appointment with {self.provider.name} on {self.date} at {self.time}"
+
+class Prescription(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    provider = models.ForeignKey(HealthcareProvider, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+    medication = models.CharField(max_length=255)
+    dosage = models.CharField(max_length=100)
+    instructions = models.TextField()
+
+    def __str__(self):
+        return f"Prescription for {self.patient.name} by {self.provider.name}"

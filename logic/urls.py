@@ -11,7 +11,12 @@ appointments_list_provider,
  create_provider_profile,
  patient_profile,
  provider_profile,
- admin_profile)
+ admin_profile,
+prescription_view,
+edit_prescription,
+delete_prescription,
+add_prescription,
+pharmacy)
 
 app_name = 'logicHSM'
 
@@ -20,6 +25,12 @@ urlpatterns = [
     path('appointments/patient_dashboard/', patient_dashboard, name='patient_dashboard'),
     path('appointments/listAdmin/', appointments_list_admin, name='appointments_list_admin'),
     path('appointments/listProvider/', appointments_list_provider, name='appointments_list_provider'),
+
+    path('prescriptions/', prescription_view, name='prescription_view'),
+    path('prescriptions/edit/<int:prescription_id>/', edit_prescription, name='edit_prescription'),
+    path('prescriptions/delete/<int:prescription_id>/', delete_prescription, name='delete_prescription'),
+    path('prescriptions/add/', add_prescription, name='add_prescription'),  # Add a new prescription
+    path('pharmacy/',pharmacy,name='pharmacy'),
 
     path('patient_profile/', patient_profile, name='patient_profile'),  # Patient dashboard
     path('admin_profile/', admin_profile, name='admin_profile'),  # Admin dashboard

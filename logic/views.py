@@ -1,8 +1,8 @@
 # Classes/views.py
 
 from django.shortcuts import render, redirect , get_object_or_404
-from .forms import PatientForm, AdministrativeStaffForm, HealthcareProviderForm,AppointmentForm
-from .models import Appointment,Patient, AdministrativeStaff,HealthcareProvider
+from .forms import PatientForm, AdministrativeStaffForm, HealthcareProviderForm,AppointmentForm,PrescriptionForm
+from .models import Appointment,Patient, AdministrativeStaff,HealthcareProvider,Prescription
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
@@ -134,9 +134,11 @@ def patient_dashboard(request):
         user_profile = request.user.userprofile
         patient = user_profile.patient  # Access the Patient through UserProfile
         appointments = patient.appointment_set.all()  # because of foreign key Django provides a way to access all related Appointment objects through the patient instance.
+        last_prescription = Prescription.objects.filter(patient=patient).order_by('-date_created').first()  # Get the last prescription
     except Patient.DoesNotExist:
         return redirect('logic:create_patient_profile')  # Redirect to profile creation if not found
-    return render(request, 'appointments/patient_dashboard.html', {'appointments': appointments})
+    return render(request, 'appointments/patient_dashboard.html', {'appointments': appointments,
+        'last_prescription': last_prescription,})
 
 def appointments_list_admin(request):
     # Retrieve all appointments
@@ -155,3 +157,46 @@ def appointments_list_provider(request):
     appointments = Appointment.objects.all()
 
     return render(request, 'appointments/appointments_list_provider.html', {'appointments': appointments})
+
+@login_required
+def prescription_view(request):
+    prescriptions = Prescription.objects.all()  # Get all prescriptions
+    return render(request, 'prescription/prescription_view.html', {'prescriptions': prescriptions})
+
+@login_required
+def add_prescription(request):
+    if request.method == 'POST':
+        form = PrescriptionForm(request.POST)
+        if form.is_valid():
+            prescription = form.save(commit=False)
+            prescription.provider = request.user.userprofile.healthcareprovider  # Set the provider
+            prescription.save()
+            return redirect('logic:prescription_view')  # Redirect to the same page after saving
+    else:
+        form = PrescriptionForm()
+
+    return render(request, 'prescription/prescription_form.html', {'form': form})
+
+@login_required
+def edit_prescription(request, prescription_id):
+    prescription = get_object_or_404(Prescription, id=prescription_id)
+
+    if request.method == 'POST':
+        form = PrescriptionForm(request.POST, instance=prescription)
+        if form.is_valid():
+            form.save()
+            prescription.save()
+            return redirect('logic:prescription_view')  # Redirect to the prescription view after saving
+    else:
+        form = PrescriptionForm(instance=prescription)
+
+    return render(request, 'prescription/prescription_form.html', {'form': form})
+
+@login_required
+def delete_prescription(request, prescription_id):
+    prescription = get_object_or_404(Prescription, id=prescription_id)
+    prescription.delete()
+    return redirect('logic:prescription_view')  # Redirect back to the prescription view
+
+def pharmacy(request):
+    return render(request,'prescription/pharmacy.html')

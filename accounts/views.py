@@ -60,8 +60,9 @@ def delete_profile(request):
         user_profile.delete()
         # Optionally, delete the user account if needed
         request.user.delete()  # Uncomment if you want to delete the user account as well
+
         # Log the user out
         logout(request)
         return redirect('accounts:login')  # Redirect to the login page
 
-    return render(request, 'delete_profile/delete_profile.html', {'user_profile': user_profile})
+    return render(request, 'delete_profile/delete_profile.html', {'user_profile': request.user})
