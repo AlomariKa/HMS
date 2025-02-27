@@ -33,11 +33,15 @@ class HealthcareProvider(models.Model):
 
 
 class Appointment(models.Model):
+    STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+    )
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     provider = models.ForeignKey(HealthcareProvider, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
-    status = models.CharField(max_length=20, default='Scheduled')  # e.g., Scheduled, Completed, Canceled
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
     def __str__(self):
         return f"Appointment with {self.provider.name} on {self.date} at {self.time}"

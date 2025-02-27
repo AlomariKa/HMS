@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 
-@login_required
+@login_required # ensures that only authenticated users can acces
 def patient_profile(request):
     try:
         user_profile = request.user.userprofile  # Access the UserProfile
@@ -18,6 +18,8 @@ def patient_profile(request):
 
     if request.method == 'POST':
         form = PatientForm(request.POST, instance=patient)
+        # Without instance=patient, the form would create a new patient.
+        # With instance=patient, the form updates the existing patient you already have.
         if form.is_valid():
             form.save()
 
@@ -32,7 +34,7 @@ def create_patient_profile(request):
     if request.method == 'POST':
         form = PatientForm(request.POST)
         if form.is_valid():
-            patient = form.save(commit=False)
+            patient = form.save(commit=False) # save the form data to a Patient object without committing it to the database immediately.
             patient.user_profile = request.user.userprofile  # Link to the user profile
             patient.save()
             return redirect(reverse('logic:patient_profile'))  # Redirect to the patient profile
@@ -113,7 +115,7 @@ def schedule_appointment(request):
         form = AppointmentForm(request.POST)
         if form.is_valid():
             appointment = form.save(commit=False)
-            appointment.patient = patient  # Assuming the user is authenticated and has a Patient profile
+            appointment.patient = patient  # This links the appointment to the specific patient.
             appointment.save()
             return redirect(reverse('logic:patient_dashboard'))  # Redirect to view upcoming appointments
     else:
@@ -126,19 +128,25 @@ def patient_dashboard(request):
     try:
         user_profile = request.user.userprofile
         patient = user_profile.patient  # Access the Patient through UserProfile
-        appointments = patient.appointment_set.all()  # Get all appointments for the patient
+        appointments = patient.appointment_set.all()  # because of foreign key Django provides a way to access all related Appointment objects through the patient instance.
     except Patient.DoesNotExist:
         return redirect(reverse('logic:create_patient_profile'))  # Redirect to profile creation if not found
     return render(request, 'appointments/patient_dashboard.html', {'appointments': appointments})
 
 def appointments_list_admin(request):
     # Retrieve all appointments
-    appointments = Appointment.objects.all()  # You can filter this based on user type if needed
-
+    appointments = Appointment.objects.all()
+    if request.method == 'POST':
+        appointment_id = request.POST.get('appointment_id')
+        new_status = request.POST.get('status')
+        appointment = Appointment.objects.get(id=appointment_id)
+        appointment.status = new_status
+        appointment.save()
+        return redirect(reverse('logic:appointments_list_admin'))
     return render(request, 'appointments/appointments_list_admin.html', {'appointments': appointments})
 
 def appointments_list_provider(request):
     # Retrieve all appointments
-    appointments = Appointment.objects.all()  # You can filter this based on user type if needed
+    appointments = Appointment.objects.all()
 
     return render(request, 'appointments/appointments_list_provider.html', {'appointments': appointments})
