@@ -1,0 +1,21 @@
+<!-- templates/Classes/admin_profile.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Profile</title>
+</head>
+<body>
+    <h1>Administrative Staff Profile</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <h2>Actions</h2>
+    <a href="{% url 'logic:appointments_list_admin' %}">View All Appointments</a>
+    <a href="{% url 'accounts:logout' %}">Logout</a>
+
+</body>
+</html>

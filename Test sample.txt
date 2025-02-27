@@ -1,0 +1,16 @@
+User: Patient8
+Pass: MarKha123
+email: patient@gamil.com
+==> Name: Ahmad / Age: 25 / Medical history: Nothing / Allergies: Nothing / Ins: I have inssurance
+
+User: Provider1
+Pass: MarKha123
+email: provider@gmail.com
+Name: Mariana
+Specialization: Doctor
+Contact: 1234
+
+User: Admin1
+Pass: MarKha123
+email: admin@gmail.com
+name: Thein / con: 4567

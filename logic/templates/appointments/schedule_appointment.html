@@ -1,0 +1,32 @@
+<!-- templates/Classes/schedule_appointment.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule Appointment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Optional: Bootstrap for styling -->
+    <script>
+        function enableEditing() {
+            // Enable all input fields in the form
+            var inputs = document.querySelectorAll('#appointmentForm input, #appointmentForm select');
+            inputs.forEach(function(input) {
+                input.disabled = false; // Remove the disabled attribute
+            });
+            document.getElementById('editButton').style.display = 'none'; // Hide the edit button
+            document.getElementById('saveButton').style.display = 'inline'; // Show the save button
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Schedule Appointment</h1>
+        <form id="appointmentForm" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- This will render the form fields -->
+            <button type="button" id="editButton" class="btn btn-secondary" onclick="enableEditing()">Edit</button>
+            <button type="submit" id="saveButton" class="btn btn-primary" style="display: none;">Save</button>
+        </form>
+    </div>
+</body>
+</html>

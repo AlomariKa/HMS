@@ -1,0 +1,17 @@
+<!-- templates/Classes/create_admin_profile.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Admin Profile</title>
+</head>
+<body>
+    <h1>Create Administrative Staff Profile</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Profile</button>
+    </form>
+</body>
+</html>
