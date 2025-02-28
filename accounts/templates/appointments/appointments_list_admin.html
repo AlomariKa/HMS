@@ -39,11 +39,15 @@
                         </form>
                     </td>
                 </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No appointments found.</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    <a href="{% url 'logic:admin_profile' %}">Back to Admin Profile</a>
+    <a href="{% url 'accounts:admin_profile' %}">Back to Admin Profile</a>
 
 </body>
 </html>

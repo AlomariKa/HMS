@@ -1,16 +1,17 @@
-<!-- templates/Classes/upcoming_appointments.html -->
+<!-- templates/Classes/appointments_list.html -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Upcoming Appointments</title>
+    <title>All Appointments</title>
 </head>
 <body>
-    <h1>Upcoming Appointments</h1>
+    <h1>All Appointments</h1>
     <table>
         <thead>
             <tr>
+                <th>Patient</th>
                 <th>Provider</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -20,6 +21,7 @@
         <tbody>
             {% for appointment in appointments %}
             <tr>
+                <td>{{ appointment.patient.name }}</td>
                 <td>{{ appointment.provider.name }}</td>
                 <td>{{ appointment.date }}</td>
                 <td>{{ appointment.time }}</td>
@@ -27,20 +29,11 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4">No upcoming appointments.</td>
+                <td colspan="5">No appointments found.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <h2>Last Prescription</h2>
-        {% if last_prescription %}
-            <p>Medication: {{ last_prescription.medication }}</p>
-            <p>Dosage: {{ last_prescription.dosage }}</p>
-            <p>Instructions: {{ last_prescription.instructions }}</p>
-            <p>Date Created: {{ last_prescription.date_created }}</p>
-        {% else %}
-            <p>No prescriptions found.</p>
-        {% endif %}
-    <a href="{% url 'logic:patient_profile' %}">Back to Profile</a>
+    <a href="{% url 'accounts:provider_profile' %}">Back to Provider Profile</a>
 </body>
 </html>

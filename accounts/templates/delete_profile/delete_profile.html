@@ -14,7 +14,7 @@
         <form method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Delete Profile</button>
-            <a href="{% url 'logic:patient_profile' %}" class="btn btn-secondary">Cancel</a>  <!-- Link to go back to the patient profile -->
+            <a href="{% url 'accounts:patient_profile' %}" class="btn btn-secondary">Cancel</a>  <!-- Link to go back to the patient profile -->
         </form>
     </div>
 </body>

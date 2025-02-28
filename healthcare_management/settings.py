@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'django.contrib.sites',  # Required for password reset
-    'logic.apps.LogicConfig'
 ]
 
 MIDDLEWARE = [

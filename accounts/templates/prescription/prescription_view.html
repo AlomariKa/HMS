@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <h1>Prescription List</h1>
-        <a href="{% url 'logic:add_prescription' %}" class="btn btn-primary">Add Prescription</a>
+        <a href="{% url 'accounts:add_prescription' %}" class="btn btn-primary">Add Prescription</a>
         <table class="table">
             <thead>
                 <tr>
@@ -35,10 +35,10 @@
                     <td>{{ prescription.dosage }}</td>
                     <td>{{ prescription.instructions }}</td>
                     <td>
-                        <a href="{% url 'logic:edit_prescription' prescription.id %}" class="btn btn-warning">Edit</a>
-                      <a href="{% url 'logic:pharmacy'%}" class="btn btn-warning">Send</a>
+                        <a href="{% url 'accounts:edit_prescription' prescription.id %}" class="btn btn-warning">Edit</a>
+                      <a href="{% url 'accounts:pharmacy'%}" class="btn btn-warning">Send</a>
 
-                        <form action="{% url 'logic:delete_prescription' prescription.id %}" method="post" style="display:inline;">
+                        <form action="{% url 'accounts:delete_prescription' prescription.id %}" method="post" style="display:inline;">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
@@ -47,7 +47,7 @@
                 {% endfor %}
             </tbody>
         </table>
-      <a href="{% url 'logic:provider_profile' %}">Profile Page</a>
+      <a href="{% url 'accounts:provider_profile' %}">Profile Page</a>
     </div>
 </body>
 </html>
