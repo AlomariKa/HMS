@@ -42,8 +42,15 @@
         {% else %}
             <p>No prescriptions found.</p>
         {% endif %}
+        <h2>Notification Send Pharmacy</h2>
+        {% for prescription in prescriptions %}
+            {% if not prescription.send %}
+            <p> Prescription in {{prescription.date_created}} by {{prescription.provider}} include {{prescription.medication}} NOT SEND  </p>
+            {% else %}
+            <p> Prescription in {{prescription.date_created}} by {{prescription.provider}} include {{prescription.medication}} SEND  </p>
 
-
+            {% endif %}
+        {% endfor %}
 
        <a href="{% url 'accounts:patient_profile' %}">Back to Profile</a>
 </body>

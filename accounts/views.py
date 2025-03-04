@@ -218,13 +218,17 @@ def patient_dashboard(request):
     patient = user_profile.patient  # Access the Patient through UserProfile
     appointments = patient.appointment_set.all()  # because of foreign key Django provides a way to access all related Appointment objects through the patient instance.
     last_prescription = Prescription.objects.filter(patient=patient).order_by('-date_created').first()  # Get the last prescription
-    # prescriptions = patient.prescription_set.all()
-    # prescription_send = prescriptions.send
-    # for prescription in prescription_send:
-    #     print(prescription)
+    prescriptions = patient.prescription_set.all()
+
+    # prescription_send_values = [prescription.send for prescription in prescriptions]
+    # print(prescription_send_values)
+    # for send_value in prescription_send_values:
+    #     print("----")
+    #     print(send_value)
+    #     print("----")
 
     return render(request, 'appointments/patient_dashboard.html', {'appointments': appointments,
-        'last_prescription': last_prescription})
+        'last_prescription': last_prescription, "prescriptions":prescriptions})
 
 @admin_required
 @login_required
@@ -309,8 +313,9 @@ def delete_prescription(request, prescription_id):
 @provider_required
 @login_required
 def pharmacy(request,prescription_id):
-    # prescription = Prescription.objects.get(id=prescription_id)
-    # prescription.send = True
+    prescription = Prescription.objects.get(id=prescription_id)
+    prescription.send = True
+    prescription.save()
     return render(request,'prescription/pharmacy.html')
 
 @admin_required
