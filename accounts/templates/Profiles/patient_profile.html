@@ -1,0 +1,23 @@
+<!-- templates/Classes/patient_profile.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Profile</title>
+</head>
+<body>
+    <h1>Patient Profile</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <h2>Actions</h2>
+    <a href="{% url 'accounts:schedule_appointment' %}">Schedule Appointment</a>
+    <a href="{% url 'accounts:patient_dashboard' %}">Patient Dashboard</a>
+    <a href="{% url 'accounts:logout' %}">Logout</a>
+<a href="{% url 'accounts:delete_profile' %}" class="btn btn-danger">Delete My Profile</a>
+
+</body>
+</html>

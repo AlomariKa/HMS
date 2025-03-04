@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>confirm delete</title>
+</head>
+<body>
+  <h1>Are you sure you want to delete Prescription for {{prescription.patient}} by {{prescription.provider}}</h1>
+  <form method="post">
+    {% csrf_token %}<!-- Default send GET response -->
+    <button type="submit">Confirm</button>
+  </form>
+  <a href="{% url 'accounts:prescription_view' %}" >Back to Prescriptions</a>
+
+
+</body>
+</html>
