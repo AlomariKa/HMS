@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Detail</title>
+</head>
+<body>
+    <h1>Invoice Details</h1>
+    <ul>
+        <li><strong>Patient - Healthcare Provider:</strong> {{ invoice.prescription }}</li>
+        <li><strong>Total Amount:</strong> {{ invoice.total_amount }}</li>
+        <li><strong>Insurance Cover:</strong> {{ invoice.insurance_cover }}</li>
+    </ul>
+<a href="{% url 'accounts:invoice_view' %}">Back</a>
+</body>
+</html>

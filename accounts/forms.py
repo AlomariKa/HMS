@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserProfile, Patient, AdministrativeStaff, HealthcareProvider, Appointment, Prescription
+from .models import UserProfile, Patient, AdministrativeStaff, HealthcareProvider, Appointment, Prescription, Invoices
 
+# It provides a clean way to define and process forms in HTML, including field validation, layout, and data processing.
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
     user_type = forms.ChoiceField(choices=UserProfile.USER_TYPE_CHOICES)
@@ -40,4 +41,13 @@ class AppointmentForm(forms.ModelForm):
 class PrescriptionForm(forms.ModelForm):
     class Meta:
         model = Prescription
-        fields = ['patient', 'provider', 'medication', 'dosage', 'instructions']
+        fields = ['patient', 'provider', 'medication', 'dosage', 'instructions' , 'service_description']
+
+
+class InvoicesForm(forms.ModelForm):
+    class Meta:
+        model = Invoices
+        fields = ['prescription','date','total_amount','Insurance_percent_cover' , 'status']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        }

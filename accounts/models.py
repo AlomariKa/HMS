@@ -74,6 +74,12 @@ class Appointment(models.Model):
     time = models.TimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
+    class Meta:
+        unique_together = ('provider', 'date', 'time')
+        # Meta is an inner class you can define inside a model to configure the behavior of the model.
+        # It provides options (called "metadata") that control various aspects of how the model interacts with
+        # the database, admin interface, and Django framework.
+
     def __str__(self):
         return f"Appointment with {self.provider.name} on {self.date} at {self.time}"
 
@@ -84,6 +90,19 @@ class Prescription(models.Model):
     medication = models.CharField(max_length=255)
     dosage = models.CharField(max_length=100)
     instructions = models.TextField()
+    service_description = models.TextField(max_length=255 , null=True)
+    send = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Prescription for {self.patient.name} by {self.provider.name}"
+
+class Invoices(models.Model):
+    STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('paid', 'Paid'),
+    )
+    prescription = models.OneToOneField(Prescription, on_delete=models.SET_NULL, null=True)
+    date = models.DateField()
+    total_amount = models.FloatField()
+    Insurance_percent_cover = models.FloatField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')

@@ -1,9 +1,13 @@
 # accounts/views.py
+import csv
+
 from django.contrib.auth import login, authenticate, logout # These functions are used for handling user authentication, logging users in and out.
 from django.contrib import messages # This module is used to display messages to users.
+from django.db.models import Sum,F
+from django.http import HttpResponse
 from django.shortcuts import render, redirect , get_object_or_404
-from .forms import PatientForm, AdministrativeStaffForm, HealthcareProviderForm,AppointmentForm,PrescriptionForm,UserRegisterForm
-from .models import UserProfile,Appointment,Patient, AdministrativeStaff,HealthcareProvider,Prescription
+from .forms import PatientForm, AdministrativeStaffForm, HealthcareProviderForm,AppointmentForm,PrescriptionForm,UserRegisterForm, InvoicesForm
+from .models import UserProfile,Appointment,Patient, AdministrativeStaff,HealthcareProvider,Prescription,Invoices
 from django.contrib.auth.decorators import login_required
 from .decorators import provider_required,admin_required,patient_required, new_provider_required,new_admin_required,new_patient_required
 
@@ -80,6 +84,7 @@ def patient_profile(request):
         return redirect('accounts:create_patient_profile')  # You need to create this view
 
     if not hasattr(request.user, 'userprofile') or not hasattr(request.user.userprofile, 'patient'):
+        #hasattr check if an object has a specific attribute
         return redirect('accounts:login')
 
     if request.method == 'POST':
@@ -213,9 +218,13 @@ def patient_dashboard(request):
     patient = user_profile.patient  # Access the Patient through UserProfile
     appointments = patient.appointment_set.all()  # because of foreign key Django provides a way to access all related Appointment objects through the patient instance.
     last_prescription = Prescription.objects.filter(patient=patient).order_by('-date_created').first()  # Get the last prescription
+    # prescriptions = patient.prescription_set.all()
+    # prescription_send = prescriptions.send
+    # for prescription in prescription_send:
+    #     print(prescription)
 
     return render(request, 'appointments/patient_dashboard.html', {'appointments': appointments,
-        'last_prescription': last_prescription,})
+        'last_prescription': last_prescription})
 
 @admin_required
 @login_required
@@ -254,6 +263,7 @@ def add_prescription(request):
         form = PrescriptionForm(request.POST)
         if form.is_valid():
             prescription = form.save(commit=False)
+            # created but not saved immediately (commit=False). This allows additional changes if needed.
             prescription.save()
             return redirect('accounts:prescription_view')  # Redirect to the same page after saving
     else:
@@ -282,11 +292,193 @@ def edit_prescription(request, prescription_id):
 @provider_required
 @login_required
 def delete_prescription(request, prescription_id):
+
     prescription = get_object_or_404(Prescription, id=prescription_id)
-    prescription.delete()
-    return redirect('accounts:prescription_view')  # Redirect back to the prescription view
+
+    if request.method == 'POST':
+        prescription = get_object_or_404(Prescription, id=prescription_id)
+        prescription.delete()
+
+        return redirect('accounts:prescription_view')  # Redirect to the prescription view after saving
+    # prescription = get_object_or_404(Prescription, id=prescription_id)
+    # prescription.delete()
+    # return redirect('prescription_view')
+
+    return render(request, 'prescription/prescription_confirm_delete.html', {'prescription': prescription})
 
 @provider_required
 @login_required
-def pharmacy(request):
+def pharmacy(request,prescription_id):
+    # prescription = Prescription.objects.get(id=prescription_id)
+    # prescription.send = True
     return render(request,'prescription/pharmacy.html')
+
+@admin_required
+@login_required
+def invoice_view(request):
+    invoices = Invoices.objects.all()
+    for invoice in invoices:
+        invoice.payable_amount = invoice.total_amount * (1 - (invoice.Insurance_percent_cover / 100))
+    return render(request,'invoices/invoice_view.html', {'invoices': invoices})
+
+@admin_required
+@login_required
+def add_invoice(request):
+
+    if request.method == 'POST':
+        form = InvoicesForm(request.POST)
+        if form.is_valid():
+
+            invoice = form.save(commit=False)
+            invoice.save()
+
+            return redirect('accounts:invoice_view')  # Redirect to the same page after saving
+    else:
+        form = InvoicesForm()
+
+
+    return render(request,'invoices/invoice_form.html', {'form': form})
+
+@admin_required
+@login_required
+def edit_invoice(request, invoice_id):
+    invoice = get_object_or_404(Invoices, id=invoice_id)
+
+    if request.method == 'POST':
+        form = InvoicesForm(request.POST, instance=invoice)
+        if form.is_valid():
+            form.save()
+            invoice.save()
+
+            return redirect('accounts:invoice_view')
+    else:
+        form = InvoicesForm(instance=invoice)
+
+    return render(request, 'invoices/invoice_form.html', {'form': form})
+
+@admin_required
+@login_required
+def invoice_detail(request,invoice_id):
+    invoice = get_object_or_404(Invoices, id=invoice_id)
+    invoice.insurance_cover = (invoice.total_amount) * (invoice.Insurance_percent_cover / 100)
+    return render(request, 'invoices/invoice_detail.html', {'invoice': invoice})
+
+@admin_required
+@login_required
+def invoice_pay(request,invoice_id):
+    invoice = get_object_or_404(Invoices, id=invoice_id)
+    invoice.status = 'paid'
+    invoice.save()
+    return redirect('accounts:invoice_view')
+
+@admin_required
+@login_required
+def delete_invoice(request,invoice_id):
+
+    invoice = get_object_or_404(Invoices, id=invoice_id)
+
+    if request.method == 'POST':
+        invoice = get_object_or_404(Invoices, id=invoice_id)
+        invoice.delete()
+
+        return redirect('accounts:invoice_view')  # Redirect to the prescription view after saving
+
+    return render(request, 'invoices/invoice_confirm_delete.html', {'invoice': invoice})
+
+@admin_required
+@login_required
+def patients_insurance(request):
+    patients = Patient.objects.all()
+
+    return render(request,'invoices/patients_insurance.html', {'patients':patients})
+
+@admin_required
+@login_required
+def service_description(request):
+    services = Prescription.objects.all()
+    return render(request,'invoices/service_description.html', {'services':services})
+
+
+@login_required
+@admin_required  # Ensure only admins can access this view
+def reporting_dashboard(request):
+
+    # Initialize variables for the report
+
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    report_type = request.GET.get('report_type')
+
+
+    # Filter data based on the date range
+    appointments = Appointment.objects.all()
+    if start_date and end_date:
+        appointments = appointments.filter(date__range=[start_date, end_date])
+
+    total_visits = appointments.count()
+
+    invoices = Invoices.objects.all()
+    total_revenue = invoices.aggregate(Sum('total_amount'))['total_amount__sum'] or 0 # common way to calculate the total sum of a field in a Django QuerySet using the Django ORM
+
+    insurance_revenue = invoices.annotate(weighted_value=F('total_amount') * F('Insurance_percent_cover')/100).aggregate(Sum('weighted_value'))['weighted_value__sum'] or 0
+    patient_revenue = total_revenue - insurance_revenue
+
+
+    # Prepare data for charts (you can customize this as needed)
+    chart_data = {
+        'total_visits': total_visits,
+        'total_revenue': total_revenue,
+        'insurance_revenue':insurance_revenue,
+        'patient_revenue':patient_revenue
+    }
+
+    return render(request, 'reports/reporting_dashboard.html', {
+        'chart_data': chart_data,
+        'start_date': start_date,
+        'end_date': end_date,
+        'report_type': report_type,
+        'appointments':appointments
+    })
+
+@login_required
+@admin_required
+def download_report_summary(request):
+    print("Hi Summary")
+    response = HttpResponse(content_type='text/csv') # send HTTP responses back to the client // response is a CSV file.
+    response['Content-Disposition'] = 'attachment; filename="report.csv"' # treat the response as a file attachment and prompts the user to download it with the filename report.csv.
+
+    writer = csv.writer(response) # interface for writing CSV data into a file-like object
+    writer.writerow(['Patient', 'Provider'])  # Header row
+
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+
+    appointments = Appointment.objects.all()
+    if start_date and end_date:
+        appointments = appointments.filter(date__range=[start_date, end_date])
+
+    for appointment in appointments:
+        writer.writerow([appointment.patient.name, appointment.provider])
+
+    return response
+
+@login_required
+@admin_required
+def download_report_detail(request):
+    print("Hi detail")
+    response = HttpResponse(content_type='text/csv') # send HTTP responses back to the client // response is a CSV file.
+    response['Content-Disposition'] = 'attachment; filename="report.csv"' # treat the response as a file attachment and prompts the user to download it with the filename report.csv.
+
+    writer = csv.writer(response) # interface for writing CSV data into a file-like object
+    writer.writerow(['Patient', 'Provider','Date', 'Time','Status' ])  # Header row
+
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    appointments = Appointment.objects.all()
+    if start_date and end_date:
+        appointments = appointments.filter(date__range=[start_date, end_date])
+
+    for appointment in appointments:
+        writer.writerow([appointment.patient.name, appointment.provider, appointment.date, appointment.time,appointment.status])
+
+    return response

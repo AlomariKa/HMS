@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoices Form</title>
+</head>
+<body>
+      <a href="{% url 'accounts:patients_insurance' %}">Insurance Detail for Patients</a>
+      <a href="{% url 'accounts:service_description' %}">Service Description for Prescription</a>
+
+        <h1>Invoice Form</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+        <a href="{% url 'accounts:admin_profile' %}">Back to Admin Profile</a>
+
+</body>
+</html>

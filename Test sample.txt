@@ -8,16 +8,16 @@ Pass: MarKha123
 email: patient@gamil.com
 ==> Name: Hasan / Age: 22 / Medical history: Nothing / Allergies: some / Ins: I do not have inssurance
 
-I have Patien11 user but without data profile
+I have Provider1 user but without data profile
 
-User: Provider1
+User: Provider2
 Pass: MarKha123
 email: provider@gmail.com
 Name: Mariana
 Specialization: Doctor
 Contact: 1234
 
-User: Provider2
+User: Provider3
 Pass: MarKha123
 email: provider@gmail.com
 Name: Dana

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+  <table class="table">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                  <th>Provider Name</th>
+                    <th>Service Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                <tr>
+                    <td>{{ service.patient.name }}</td>
+                    <td>{{ service.provider.name }}</td>
+                    <td>{{ service.service_description }}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      <a href="{% url 'accounts:add_invoice' %}">Back</a>
+
+</body>
+</html>
