@@ -1,23 +1,71 @@
-<!-- templates/Classes/patient_profile.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/patient_profile.css' %}">
 </head>
 <body>
-    <h1>Patient Profile</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-    <h2>Actions</h2>
-    <a href="{% url 'accounts:schedule_appointment' %}">Schedule Appointment</a>
-    <a href="{% url 'accounts:patient_dashboard' %}">Patient Dashboard</a>
-    <a href="{% url 'accounts:logout' %}">Logout</a>
-<a href="{% url 'accounts:delete_profile' %}" class="btn btn-danger">Delete My Profile</a>
+<div class="dashboard-container">
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+            <span>Health Care</span>
+        </div>
+         <nav>
+            <a href="/appointments/schedule/">Schedule Appointment</a>
+            <a href="/appointments/patient_dashboard/">Patient Dashboard</a>
+             <a href="/logout/">Logout</a>
+             <a href="/delete_profile/">Delete My Profile</a>
+        </nav>
 
+    </div>
+
+    <div class="profile-content">
+        <h2>Patient Profile</h2>
+        <div class="profile-details">
+            <p><strong>Name:</strong> {{ form.name.value }}</p>
+            <p><strong>Age:</strong> {{ form.age.value }}</p>
+            <p><strong>Medical History:</strong> {{ form.medical_history.value }}</p>
+            <p><strong>Allergies:</strong> {{ form.allergies.value }}</p>
+            <p><strong>Insurance Detail:</strong> {{ form.insurance_detail.value }}</p>
+        </div>
+        <button id="edit-btn">Edit Profile</button>
+        <div id="edit-form" style="display:none;">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    {{ form.age }}
+                </div>
+                <div class="form-group">
+                    <label for="medical_history">Medical History:</label>
+                    {{ form.medical_history }}
+                </div>
+                <div class="form-group">
+                    <label for="allergies">Allergies:</label>
+                    {{ form.allergies }}
+                </div>
+                <div class="form-group">
+                    <label for="insurance_detail">Insurance Detail:</label>
+                    {{ form.insurance_detail }}
+                </div>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("edit-btn").onclick = function () {
+        const form = document.getElementById("edit-form");
+        form.style.display = form.style.display === "none" ? "block" : "none";
+    };
+</script>
 </body>
 </html>

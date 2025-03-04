@@ -1,0 +1,126 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2C3E50;
+    padding: 15px;
+    color: white;
+}
+
+.navbar .logo img {
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navbar nav a:hover {
+    text-decoration: underline;
+}
+
+/* Profile Section */
+.profile-content {
+    background: white;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-content h2 {
+    color: #2C3E50;
+    text-align: center;
+}
+
+/* Profile Details */
+.profile-details p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+/* Edit Button */
+#edit-btn {
+    display: block;
+    background-color: #3498DB;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#edit-btn:hover {
+    background-color: #2980B9;
+}
+
+/* Edit Form */
+#edit-form {
+    margin-top: 20px;
+    padding: 10px;
+    display: none;
+    background: #ecf0f1;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    background-color: #2ECC71;
+    color: white;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button[type="submit"]:hover {
+    background-color: #27AE60;
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Add space between logo and text */
+}
+
+.logo img {
+    width: 50px; /* Keep image size consistent */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.logo span {
+    font-weight: 600; /* Match the navbar text style */
+    font-size: 18px; /* Adjust font size if necessary */
+}
