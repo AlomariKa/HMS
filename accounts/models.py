@@ -19,16 +19,17 @@ class UserProfile(models.Model):
 
 
 # Create a signal to create/update the user profile
+# Django signals to automatically create or update a UserProfile whenever a User instance is created or saved.
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-
+# This signal creates a UserProfile when a new User instance is created:
 @receiver(post_save, sender=User) # connects post_save signal to the create_user_profile function for User model.
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
 
-
+# This signal ensures that the UserProfile is saved whenever the User instance is saved:
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
@@ -36,11 +37,11 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Patient(models.Model):
     user_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, blank=True, null=True)  # Allow null
-    age = models.IntegerField(blank=True, null=True)  # Allow null
-    medical_history = models.TextField(blank=True, null=True)  # Allow null
-    allergies = models.TextField(blank=True, null=True)  # Allow null
-    insurance_detail = models.TextField(blank=True, null=True)  # Allow null
+    name = models.CharField(max_length=100, blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
+    medical_history = models.TextField(blank=True, null=True)
+    allergies = models.TextField(blank=True, null=True)
+    insurance_detail = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"Patient: {self.name}"
@@ -56,7 +57,7 @@ class AdministrativeStaff(models.Model):
 class HealthcareProvider(models.Model):
     user_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, null=True)
-    specialization = models.CharField(max_length=100, null=True)  # e.g., Doctor, Nurse
+    specialization = models.CharField(max_length=100, null=True)
     contact_number = models.CharField(max_length=15, null=True)
 
     def __str__(self):
@@ -69,6 +70,7 @@ class Appointment(models.Model):
         ('completed', 'Completed'),
     )
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    # On patient have multiple appointments
     provider = models.ForeignKey(HealthcareProvider, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()

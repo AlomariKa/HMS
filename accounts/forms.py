@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserProfile, Patient, AdministrativeStaff, HealthcareProvider, Appointment, Prescription, Invoices
 
-# It provides a clean way to define and process forms in HTML, including field validation, layout, and data processing.
+# UserCreationForm is a type of form used to collect information from users when they create an account on a website or application.
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
     user_type = forms.ChoiceField(choices=UserProfile.USER_TYPE_CHOICES)
