@@ -1,13 +1,40 @@
-<h2>Login</h2>
-<form method="POST">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" name="username" required>
-<!--     the for="username" in the label matches the id="username" in the input element. Clicking on the label will focus on the input field, making the interaction smoother. -->
-    <label for="password">Password:</label>
-    <input type="password" name="password" required>
-    <button type="submit">Login</button>
-</form>
-
-<a href="{% url 'accounts:password_reset' %}">Forgot password?</a>
-<a href="{% url 'accounts:register' %}">Don't have an account? Register</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    {% load static %}  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+        </div>
+        <h2>Login</h2>
+{% if form.errors %}
+    <ul style="color: red;">
+        {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+                <li>{{ error|slice:"0:" }}</li>  {% endfor %}
+        {% endfor %}
+    </ul>
+{% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="links">
+            <a href="{% url 'accounts:password_reset' %}">Forgot password?</a><br>
+            <a href="{% url 'accounts:register' %}">Create a new account</a>
+        </div>
+    </div>
+</body>
+</html>
