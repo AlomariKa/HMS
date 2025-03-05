@@ -1,3 +1,5 @@
 .idea
 Pipfile
 Pipfile.lock
+django_debug.log
+.env

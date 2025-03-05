@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from django.conf.global_settings import LOGIN_URL
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +22,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+w2q&_@b101kqef@=@^!uogcp=vm&hl73w63r(7ap1y8_)+i%$'
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+# SECRET_KEY
+SECRET_KEY = os.getenv('SECRET_KEY')
+# Get the database configuration from environment variables
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
+    }
+}
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,16 +98,6 @@ WSGI_APPLICATION = 'healthcare_management.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hsm',
-        'USER': 'root',
-        'PASSWORD': '6585',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Password validation
@@ -131,5 +141,29 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = "//"
+
+# SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS // make sure that all data exchanged between the user and your website is encrypted and secure.
+# SESSION_COOKIE_SECURE = True  # Ensure cookies are only sent over HTTPS // This prevents the cookies from being sent over insecure connections, which could be intercepted by malicious actors.
+# CSRF_COOKIE_SECURE = True  # Ensure CSRF cookies are only sent over HTTPS
+#
+# LOGGING = {
+#     'version': 1,  # This is like setting the version of your diary template
+#     'disable_existing_loggers': False,  # Keep other existing diaries (loggers) active
+#     'handlers': {  # Define where to store your diary entries
+#         'file': {
+#             'level': 'DEBUG',  # Record all types of events, from minor details to critical issues
+#             'class': 'logging.FileHandler',  # Write the entries in a file
+#             'filename': 'django_debug.log',  # The name of the diary file
+#         },
+#     },
+#     'loggers': {  # Define the sections of your diary
+#         'django': {
+#             'handlers': ['file'],  # Use the file handler to store entries
+#             'level': 'DEBUG',  # Record all types of events
+#             'propagate': True,  # Allow entries to be shared with other sections if needed
+#         },
+#     },
+# }
 
 

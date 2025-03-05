@@ -10,8 +10,10 @@ from .forms import PatientForm, AdministrativeStaffForm, HealthcareProviderForm,
 from .models import UserProfile,Appointment,Patient, AdministrativeStaff,HealthcareProvider,Prescription,Invoices
 from django.contrib.auth.decorators import login_required
 from .decorators import provider_required,admin_required,patient_required, new_provider_required,new_admin_required,new_patient_required
+from django.views.decorators.csrf import csrf_exempt
 
 # User Authentication #
+@csrf_exempt
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -29,6 +31,7 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'accounts/register.html', {'form': form})
 
+@csrf_exempt
 def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']

@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 # Django’s built-in user model
 from django.db import models
-# create and manage database models.
 
 class UserProfile(models.Model):
     USER_TYPE_CHOICES = (
@@ -40,8 +39,8 @@ class Patient(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     age = models.IntegerField(blank=True, null=True)
     medical_history = models.TextField(blank=True, null=True)
-    allergies = models.TextField(blank=True, null=True)
-    insurance_detail = models.TextField(blank=True, null=True)
+    allergies =  models.TextField(blank=True, null=True)
+    insurance_detail =  models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"Patient: {self.name}"
