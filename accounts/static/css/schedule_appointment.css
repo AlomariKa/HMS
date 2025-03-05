@@ -1,0 +1,176 @@
+/* Reset and Base Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 100%;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.logout-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
+/* Main Content Styles */
+main {
+    text-align: center;
+    margin-left: 10px;
+}
+
+h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+    margin: 0 auto;
+
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.confirm-btn {
+    background-color: #2ECC71;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.confirm-btn:hover {
+    background-color: #27AE60;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2C3E50;
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+.navbar .logo img {
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navbar nav a:hover {
+    text-decoration: underline;
+}
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    background-color: #2ECC71;
+    color: white;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button[type="submit"]:hover {
+    background-color: #27AE60;
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Add space between logo and text */
+    height: 80px;
+    white-space: nowrap;
+    width: 100px;
+    margin-left: 10px;
+
+}
+
+.logo img {
+    width: 50px; /* Keep image size consistent */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.logo span {
+    font-weight: 600; /* Match the navbar text style */
+    font-size: 18px; /* Adjust font size if necessary */
+}
+
+.container {
+    width: 100%;
+    margin: 0; /* Remove any margin */
+    padding: 0; /* If padding is unnecessary, remove it too */
+    background-color: #fff;
+}
+
+.navbar-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}

@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'healthcare_management.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hsm',
+        'NAME': 'hms',
         'USER': 'root',
-        'PASSWORD': '6585',
+        'PASSWORD': 'Mariana123',
         'HOST': 'localhost',
         'PORT': '3306',
     }
