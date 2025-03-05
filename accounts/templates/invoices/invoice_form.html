@@ -1,21 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Invoices Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Form</title>
+    <link rel="stylesheet" href="../../static/css/invoice_form.css"> <!-- Link to the external CSS -->
+    {% load static %}
 </head>
 <body>
-      <a href="{% url 'accounts:patients_insurance' %}">Insurance Detail for Patients</a>
-      <a href="{% url 'accounts:service_description' %}">Service Description for Prescription</a>
-
-        <h1>Invoice Form</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Save</button>
-        </form>
+<div class="navbar">
+    <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+        <span>Health Care</span>
+    </div>
+    <nav>
         <a href="{% url 'accounts:admin_profile' %}">Back to Admin Profile</a>
+        <a href="{% url 'accounts:patients_insurance' %}">Insurance Detail for Patients</a>
+        <a href="{% url 'accounts:service_description' %}">Service Description for Prescription</a>
+    </nav>
+</div>
+<div class="dashboard-container">
+    <h1>Invoice Form</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class = "submit-button" type="submit">Save</button>
+    </form>
+</div>
 
 </body>
 </html>

@@ -5,7 +5,11 @@ body {
     margin: 0;
 }
 .dashboard-container {
+    display: flex;
     width: 100%;
+    text-align: center;
+    flex-direction: column;
+    gap: 10px;
 }
 .navbar {
     display: flex;
@@ -27,54 +31,6 @@ body {
 .logo img {
     width: 50px;
     margin-right: 10px;
-}
-.profile-content {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-}
-.profile-details {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    width: 500px;
-}
-.profile-details p {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-#edit-btn {
-    background-color: #1f3b73;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    text-align: center;
-}
-#edit-btn:hover {
-    background-color: #17305a;
-}
-form {
-    margin-top: 20px;
-}
-.form-group {
-    margin-bottom: 15px;
-}
-button[type="submit"] {
-    background-color: #17305a;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-button[type="submit"]:hover {
-    background-color: #17305a;
 }
 
 .logo {

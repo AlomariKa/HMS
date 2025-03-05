@@ -1,0 +1,77 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2C3E50;
+    padding: 0;
+    margin: 0;
+    color: white;
+    height: 70px;
+}
+
+.navbar .logo img {
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navbar nav a:hover {
+    text-decoration: underline;
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Add space between logo and text */
+}
+
+.logo img {
+    width: 50px; /* Keep image size consistent */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.logo span {
+    font-weight: 600; /* Match the navbar text style */
+    font-size: 18px; /* Adjust font size if necessary */
+}
+
+form {
+    width: 30%; /* Adjust the width as needed */
+    text-align: left; /* Align text to the left within the form */
+    padding: 20px; /* Add some space around the form elements */
+    border: 1px solid #ddd; /* Add a subtle border to the form */
+    border-radius: 5px; /* Add rounded corners to the form */
+}
+
+
+.submit-button {
+    display: block; /* Make the button a block-level element */
+    width: 100%; /* Make the button take up the full width of its container */
+    margin-top: 20px; /* Add spacing above the button */
+}

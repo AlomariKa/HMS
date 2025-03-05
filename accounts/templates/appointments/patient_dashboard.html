@@ -3,55 +3,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upcoming Appointments</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/patient_dashboard.css' %}">
 </head>
 <body>
-    <h1>Upcoming Appointments</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Provider</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
+<div class="dashboard-container">
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+            <span>Health Care</span>
+        </div>
+        <div>
+            <a href="{% url 'accounts:patient_profile' %}">Back to Profile</a>
+            <a href="{% url 'accounts:logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="profile-content">
+        <div class="profile-details">
+            <h1>Upcoming Appointments</h1>
+            {% if appointments %}
+            <table>
+                <thead>
+                     <tr>
+                         <th>Provider</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+            <tbody>
             {% for appointment in appointments %}
-            <tr>
-                <td>{{ appointment.provider.name }}</td>
-                <td>{{ appointment.date }}</td>
-                <td>{{ appointment.time }}</td>
-                <td>{{ appointment.status }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4">No upcoming appointments.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h2>Last Prescription</h2>
-        {% if last_prescription %}
-            <p>Healthcare Provider: {{ last_prescription.provider }}</p>
-            <p>Medication: {{ last_prescription.medication }}</p>
-            <p>Dosage: {{ last_prescription.dosage }}</p>
-            <p>Instructions: {{ last_prescription.instructions }}</p>
-            <p>Date Created: {{ last_prescription.date_created }}</p>
+                <tr>
+                    <td>{{ appointment.provider.name }}</td>
+                    <td>{{ appointment.date }}</td>
+                    <td>{{ appointment.time }}</td>
+                    <td>{{ appointment.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% else %}
-            <p>No prescriptions found.</p>
+        <p>No upcoming appointments.</p>
         {% endif %}
-        <h2>Notification Send Pharmacy</h2>
-        {% for prescription in prescriptions %}
-            {% if not prescription.send %}
-            <p> Prescription in {{prescription.date_created}} by {{prescription.provider}} include {{prescription.medication}} NOT SEND  </p>
+
+            <h2>Last Prescription</h2>
+            {% if last_prescription %}
+                <p>Healthcare Provider: {{ last_prescription.provider }}</p>
+                <p>Medication: {{ last_prescription.medication }}</p>
+                <p>Dosage: {{ last_prescription.dosage }}</p>
+                <p>Instructions: {{ last_prescription.instructions }}</p>
+                <p>Date Created: {{ last_prescription.date_created }}</p>
             {% else %}
-            <p> Prescription in {{prescription.date_created}} by {{prescription.provider}} include {{prescription.medication}} SEND  </p>
-
+                <p>No prescriptions found.</p>
             {% endif %}
-        {% endfor %}
 
-       <a href="{% url 'accounts:patient_profile' %}">Back to Profile</a>
+            <h2>Notification</h2>
+            {% if prescriptions %}
+            {% for prescription in prescriptions %}
+            {% if not prescription.send %}
+                <p>Prescription in {{ prescription.date_created }} by {{ prescription.provider }} includes {{ prescription.medication }} <strong>NOT SENT</strong></p>
+            {% else %}
+                <p>Prescription in {{ prescription.date_created }} by {{ prescription.provider }} includes {{ prescription.medication }} <strong>SENT</strong></p>
+                {% endif %}
+            {% endfor %}
+            {% else %}
+                <p>No notifications.</p>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
 </body>
 </html>

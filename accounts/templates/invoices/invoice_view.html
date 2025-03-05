@@ -1,62 +1,78 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Invoices List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice List</title>
+    <link rel="stylesheet" href="../../static/css/invoice_list.css"> <!-- Link to the external CSS -->
+    {% load static %}
 </head>
 <body>
-    <div class="container">
+<div class="container">
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+            <span>Health Care</span>
+        </div>
+        <nav>
+            <a href="{% url 'accounts:admin_profile' %}">Back to Profile</a>
+        </nav>
+    </div>
+    <div class="dashboard-container">
         <h1>Invoices List</h1>
+            {% if appointments %}
         <table class="table">
             <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Service Description</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Edit</th>
-                    <th>View Detail</th>
-                    <th>Pay</th>
-                    <th>Delete</th>
+            <tr>
+                <th>Date</th>
+                <th>Service Description</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>View Detail</th>
+                <th>Pay</th>
+                <th>Delete</th>
 
-                </tr>
+            </tr>
             </thead>
             <tbody>
-                {% for invoice in invoices %}
+            {% for invoice in invoices %}
                 <tr>
                     <td>{{ invoice.date }}</td>
                     <td>{{ invoice.prescription.service_description }}</td>
-                    <td>{{ invoice.payable_amount  }}</td>
+                    <td>{{ invoice.payable_amount }}</td>
                     <td>{{ invoice.status }}</td>
                     <td>
-                        <a href="{% url 'accounts:edit_invoice' invoice.id %}" >Edit</a>
+                        <a href="{% url 'accounts:edit_invoice' invoice.id %}">Edit</a>
 
                     </td>
-                  <td>
-                    <a href="{% url 'accounts:invoice_detail' invoice.id %}" >Detail</a>
+                    <td>
+                        <a href="{% url 'accounts:invoice_detail' invoice.id %}">Detail</a>
 
-                  </td>
-                  <td>
-                    {% if invoice.status == 'paid' %}
-                    <td>IT is Paid</td>
-                    {% else %}
-                    <form action="{% url 'accounts:invoice_pay' invoice.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" >Pay</button>
-                        </form>
-                    {% endif %}
+                    </td>
+                    <td>
+                        {% if invoice.status == 'paid' %}
+                            <td>IT is Paid</td>
+                        {% else %}
+                            <form action="{% url 'accounts:invoice_pay' invoice.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit">Pay</button>
+                            </form>
+                        {% endif %}
 
-                  </td>
+                    </td>
                     <td>
                         <a href="{% url 'accounts:delete_invoice' invoice.id %}">Delete</a>
                     </td>
                 </tr>
-                {% endfor %}
+            {% endfor %}
             </tbody>
         </table>
-      <a href="{% url 'accounts:add_invoice' %}" class="btn btn-primary">Add Invoice</a>
-      <a href="{% url 'accounts:admin_profile' %}">Profile Page</a>
+                {% else %}
+                <p>No Invoices.</p>
+            {% endif %}
+        <a href="{% url 'accounts:add_invoice' %}" class="btn btn-primary">Add Invoice</a>
     </div>
+</div>
 </body>
 </html>

@@ -4,29 +4,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schedule Appointment</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Optional: Bootstrap for styling -->
-    <script>
-        function enableEditing() {
-            // Enable all input fields in the form
-            var inputs = document.querySelectorAll('#appointmentForm input, #appointmentForm select');
-            inputs.forEach(function(input) {
-                input.disabled = false; // Remove the disabled attribute
-            });
-            document.getElementById('editButton').style.display = 'none'; // Hide the edit button
-            document.getElementById('saveButton').style.display = 'inline'; // Show the save button
-        }
-    </script>
+    <link rel="stylesheet" href="../../static/css/schedule_appointment.css"> <!-- Link to the external CSS -->
+    {% load static %}
 </head>
 <body>
-    <div class="container">
-        <h1>Schedule Appointment</h1>
-        <form id="appointmentForm" method="post">
-            {% csrf_token %}
-            {{ form.as_p }}  <!-- This will render the form fields -->
-            <button type="button" id="editButton" class="btn btn-secondary" onclick="enableEditing()">Edit</button>
-            <button type="submit" id="saveButton" class="btn btn-primary" style="display: none;">Save</button>
-        </form>
+    <div>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+            <span>Health Care</span>
+        </div>
+         <nav>
+            <a href="/appointments/patient_dashboard/">Patient Dashboard</a>
+             <a href="/logout/">Logout</a>
+             <a href="/delete_profile/">Delete My Profile</a>
+        </nav>
+
+    </div>
+
+        <main>
+            <h1>Appointment Scheduling</h1>
+            <form id="appointmentForm" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="provider">Select a Provider</label>
+                    <select id="provider" name="provider" required>
+                        <option value="" disabled selected>Choose a provider</option>
+                        <!-- Add provider options here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Available Dates</label>
+                    <select id="date" name="date" required>
+                        <option value="" disabled selected>Pick a date</option>
+                        <!-- Add date options here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="time">Available Time Slots</label>
+                    <select id="time" name="time" required>
+                        <option value="" disabled selected>Pick a time</option>
+                        <!-- Add time options here -->
+                    </select>
+                </div>
+                <button type="submit" class="confirm-btn">Confirm Your Appointment</button>
+            </form>
+        </main>
     </div>
 </body>
 </html>

@@ -1,17 +1,42 @@
-<!-- templates/Classes/create_patient_profile.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Patient Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/patient_create_profile.css' %}">
 </head>
 <body>
-    <h1>Create Patient Profile</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create Profile</button>
-    </form>
+    <div class="profile-container">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+        </div>
+        <h2>Create Patient Profile</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                {{ form.age }}
+            </div>
+            <div class="form-group">
+                <label for="medical_history">Medical History:</label>
+                {{ form.medical_history }}
+            </div>
+            <div class="form-group">
+                <label for="allergies">Allergies:</label>
+                {{ form.allergies }}
+            </div>
+            <div class="form-group">
+                <label for="insurance_detail">Insurance Detail:</label>
+                {{ form.insurance_detail }}
+            </div>
+            <button type="submit">Create Profile</button>
+        </form>
+    </div>
 </body>
 </html>
