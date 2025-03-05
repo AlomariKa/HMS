@@ -107,3 +107,7 @@ class Invoices(models.Model):
     total_amount = models.FloatField()
     Insurance_percent_cover = models.FloatField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Invoice {self.id} - {self.patient_name}"

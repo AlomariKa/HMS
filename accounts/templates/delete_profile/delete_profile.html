@@ -1,20 +1,19 @@
-<!-- templates/accounts/delete_profile.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Delete Profile</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/delete_profile.css"> <!-- Link to the external CSS -->
+    {% load static %}
 </head>
 <body>
     <div class="container">
         <h1>Delete Profile</h1>
-        <p>Are you sure you want to delete your profile {{user_profile}} ?</p>
+        <p>Are you sure you want to delete your profile {{ user_profile }}?</p>
         <form method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Delete Profile</button>
-            <a href="{% url 'accounts:patient_profile' %}" class="btn btn-secondary">Cancel</a>  <!-- Link to go back to the patient profile -->
+            <a href="{% url 'accounts:patient_profile' %}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </body>

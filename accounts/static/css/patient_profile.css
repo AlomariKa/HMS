@@ -106,3 +106,21 @@ button[type="submit"]:hover {
     font-weight: 600; /* Match the navbar text style */
     font-size: 18px; /* Adjust font size if necessary */
 }
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block; /* Make labels stack vertically */
+    margin-bottom: 5px; /* Add some space between label and input */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: block; /* Make inputs stack vertically */
+}

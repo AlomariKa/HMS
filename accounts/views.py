@@ -490,3 +490,34 @@ def download_report_detail(request):
         writer.writerow([appointment.patient.name, appointment.provider, appointment.date, appointment.time,appointment.status])
 
     return response
+
+
+@admin_required
+@login_required
+def download_invoice(request, invoice_id):
+    invoice = get_object_or_404(Invoices, id=invoice_id)
+
+    # Set the response type to CSV
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="Invoice_{invoice.id}.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(
+        ['Invoice ID', 'Patient Name', 'Total Amount', 'Insurance Cover', 'Payable Amount', 'Status', 'Date Created'])
+
+    # Calculate Payable Amount
+    insurance_cover = invoice.total_amount * (invoice.Insurance_percent_cover / 100)
+    payable_amount = invoice.total_amount - insurance_cover
+
+    # Write Invoice Data
+    writer.writerow([
+        invoice.id,
+        invoice.prescription.patient.name,
+        invoice.total_amount,
+        insurance_cover,
+        payable_amount,
+        invoice.status,
+        invoice.date_created
+    ])
+
+    return response

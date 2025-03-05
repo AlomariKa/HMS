@@ -1,5 +1,3 @@
-<!-- templates/Classes/schedule_appointment.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,26 +26,7 @@
             <h1>Appointment Scheduling</h1>
             <form id="appointmentForm" method="post">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="provider">Select a Provider</label>
-                    <select id="provider" name="provider" required>
-                        <option value="" disabled selected>Choose a provider</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="date">Available Dates</label>
-                    <select id="date" name="date" required>
-                        <option value="" disabled selected>Pick a date</option>
-                        <!-- Add date options here -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="time">Available Time Slots</label>
-                    <select id="time" name="time" required>
-                        <option value="" disabled selected>Pick a time</option>
-                        <!-- Add time options here -->
-                    </select>
-                </div>
+                {{ form.as_p }}
                 <button type="submit" class="confirm-btn">Confirm Your Appointment</button>
             </form>
         </main>

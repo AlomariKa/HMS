@@ -33,9 +33,9 @@ class AppointmentForm(forms.ModelForm):
         model = Appointment
         fields = ['provider', 'date', 'time']
         widgets = { # using Widgets HTML attributes to customize the appearance and behavior of the form fields.
-            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control', 'disabled': 'disabled'}),
-            'time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control', 'disabled': 'disabled'}),
-            'provider': forms.Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
+            'provider': forms.Select(attrs={'class': 'form-control'}),
         } # When a field is disabled, users can see the field and its value, but they cannot interact with it.
 
 class PrescriptionForm(forms.ModelForm):
