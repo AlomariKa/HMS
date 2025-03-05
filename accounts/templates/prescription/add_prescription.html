@@ -1,12 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Add Prescription</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/add_prescription.css' %}">
 </head>
 <body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+            <span>Health Care</span>
+        </div>
+        <nav>
+            <a href="{% url 'accounts:prescription_view' %}">Back to Prescriptions</a>
+        </nav>
+    </div>
+
     <div class="container">
         <h1>Add Prescription</h1>
         <form method="post">
@@ -14,7 +24,6 @@
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Add Prescription</button>
         </form>
-        <a href="{% url 'accounts:prescription_view' %}" class="btn btn-secondary">Back to Prescriptions</a>
     </div>
 </body>
 </html>

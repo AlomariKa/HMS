@@ -1,20 +1,169 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Prescription Form</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2C3E50;
+            padding: 15px;
+            color: white;
+        }
+
+        .navbar .logo img {
+            max-height: 50px;
+            margin-right: 10px;
+        }
+
+        .navbar nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .navbar nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2C3E50;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo span {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block; /* Make labels stack vertically */
+            margin-bottom: 5px; /* Add some space between label and input */
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: block; /* Make inputs stack vertically */
+        }
+
+        button[type="submit"] {
+            /* ... your existing button styles ... */
+            display: block; /* Make the button a block-level element */
+            margin: 20px auto 0; /* Add margin-top and center horizontally */
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Prescription Form</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-
+<div class="navbar">
+    <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+        <span>Health Care</span>
     </div>
+    <nav>
+        <a href="{% url 'accounts:prescription_view' %}">Back to Prescriptions</a>
+    </nav>
+</div>
+
+<div class="container">
+    <h1>Prescription Form</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.patient.label_tag }}
+            {{ form.patient }}
+        </div>
+        <div class="form-group">
+            {{ form.provider.label_tag }}
+            {{ form.provider }}
+        </div>
+        <div class="form-group">
+            {{ form.medication.label_tag }}
+            {{ form.medication }}
+        </div>
+        <div class="form-group">
+            {{ form.dosage.label_tag }}
+            {{ form.dosage }}
+        </div>
+        <div class="form-group">
+            {{ form.instructions.label_tag }}
+            {{ form.instructions }}
+        </div>
+        <div class="form-group">
+            {{ form.service_description.label_tag }}
+            {{ form.service_description }}
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
 </body>
 </html>
