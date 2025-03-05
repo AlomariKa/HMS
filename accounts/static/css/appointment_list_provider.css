@@ -1,0 +1,51 @@
+/* Patient Profile CSS */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+}
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2C3E50;
+    padding: 1rem 2rem;
+    color: white;
+}
+.navbar a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.navbar a:hover {
+    text-decoration: underline;
+}
+.logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Add space between logo and text */
+}
+
+.logo img {
+    width: 50px; /* Keep image size consistent */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.logo span {
+    font-weight: 600; /* Match the navbar text style */
+    font-size: 18px; /* Adjust font size if necessary */
+}
+
