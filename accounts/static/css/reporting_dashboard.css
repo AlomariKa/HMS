@@ -1,0 +1,128 @@
+/* reporting_dashboard.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2C3E50;
+    padding: 10px 20px; /* Add some padding around the navbar content */
+    color: white;
+    height: 70px;
+}
+
+.navbar .logo img {
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navbar nav a:hover {
+    text-decoration: underline;
+}
+
+.dashboard-container {
+    /* Existing styles for the dashboard container */
+    max-width: 800px; /* Limit the width of the container */
+    margin: 20px auto; /* Center the container on the page */
+    padding: 20px; /* Add some padding around the content */
+    background-color: #fff; /* Add a white background */
+    border-radius: 5px; /* Add rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 50px;
+    height: auto;
+}
+
+.logo span {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+/* Styles for the form elements (optional) */
+form {
+    /* Existing form styles */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="date"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Styles for the table (optional) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Styles for the summary section (optional) */
+.summary div {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+/* Styles for the chart (optional) */
+canvas {
+    margin-top: 20px;
+}
+
+button.btn.btn-success { /* Style the buttons */
+    display: inline-block; /* Or display: block; if you want them to take full width */
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

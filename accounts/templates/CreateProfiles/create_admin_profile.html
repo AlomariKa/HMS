@@ -1,17 +1,23 @@
-<!-- templates/Classes/create_admin_profile.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Admin Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Administrative Staff Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/administrative_create_profile.css' %}">
 </head>
 <body>
-    <h1>Create Administrative Staff Profile</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create Profile</button>
-    </form>
+    <div class="profile-container">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+        </div>
+        <h2>Create Administrative Staff Profile</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create Profile</button>
+        </form>
+    </div>
 </body>
 </html>

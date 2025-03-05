@@ -1,16 +1,25 @@
-<!-- templates/reports/reporting_dashboard.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Reporting Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js for charts -->
-</head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../../static/css/reporting_dashboard.css"> </head>
+    {% load static %}
 <body>
-        <h1>Reporting Dashboard</h1>
-        <form method="GET" >
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+            <span>Health Care</span>
+        </div>
+        <nav>
+            <a href="{% url 'accounts:admin_profile' %}">Back to Admin Profile</a>
+        </nav>
+    </div>
 
+    <div class="dashboard-container">
+        <h1>Reporting Dashboard</h1>
+        <form method="GET">
             <label for="start_date">Start Date</label>
             <input type="date" class="form-control" id="start_date" name="start_date" value="{{ start_date | default:''}}">
 
@@ -18,117 +27,106 @@
             <input type="date" class="form-control" id="end_date" name="end_date" value="{{ end_date | default:'' }}">
 
             <label for="report_type">Report Type</label>
-            <select  id="report_type" name="report_type">
+            <select id="report_type" name="report_type">
                 <option value="summary" {% if report_type == 'summary' %}selected{% endif %}>Summary</option>
                 <option value="detailed" {% if report_type == 'detailed' %}selected{% endif %}>Detailed</option>
             </select>
 
-            <button type="submit" >Generate Report</button>
-          <br>
-          {% if report_type == 'summary' %}
-          <table>
-            <thead>
-              <tr>
-                <th>Patient</th>
-                <th>Provider</th>
-              </tr>
+            <button type="submit">Generate Report</button>
+            <br>
+            {% if report_type == 'summary' %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Provider</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{appointment.patient.name}}</td>
+                            <td>{{appointment.provider}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-            </thead>
-            <tbody>
-              {% for appointment in appointments %}
-                <tr>
-                  <td>{{appointment.patient.name}}</td>
-                  <td>{{appointment.provider}}</td>
-
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-           <a href="{% url 'accounts:download_report_summary' %}?start_date={{ start_date |default:'' }}&end_date={{ end_date |default:'' }}" class="btn btn-success">Download Summary Report</a>
-          {% else %}
-          <table>
-            <thead>
-              <tr>
-                <th>Patient</th>
-                <th>Provider</th>
-                <th>date</th>
-                <th>Time</th>
-                <th>Status</th>
-
-              </tr>
-
-            </thead>
-            <tbody>
-              {% for appointment in appointments %}
-                <tr>
-                  <td>{{appointment.patient.name}}</td>
-                  <td>{{appointment.provider}}</td>
-                  <td>{{appointment.date}}</td>
-                  <td>{{appointment.time}}</td>
-                  <td>{{appointment.status}}</td>
-
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-
-        <a href="{% url 'accounts:download_report_detail' %}?start_date={{ start_date |default:''  }}&end_date={{ end_date |default:''  }}" class="btn btn-success">Download Detailed Report</a>
-          {% endif %}
-
+            <button type="button" onclick="window.location.href='{% url 'accounts:download_report_summary' %}?start_date={{ start_date |default:'' }}&end_date={{ end_date |default:'' }}'" class="btn btn-success">Download Summary Report</button>
+            {% else %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Provider</th>
+                        <th>date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{appointment.patient.name}}</td>
+                            <td>{{appointment.provider}}</td>
+                            <td>{{appointment.date}}</td>
+                            <td>{{appointment.time}}</td>
+                            <td>{{appointment.status}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="button" onclick="window.location.href='{% url 'accounts:download_report_detail' %}?start_date={{ start_date |default:'' }}&end_date={{ end_date |default:'' }}'" class="btn btn-success">Download Detailed Report</button>
+            {% endif %}
         </form>
+
         <p>Total Visits: {{ chart_data.total_visits }}</p>
 
         <h2>Summary</h2>
         <div>
             <p>Total Revenue: ${{ chart_data.total_revenue }}</p>
-          <p>Insurance Revenue: ${{ chart_data.insurance_revenue }}</p>
+            <p>Insurance Revenue: ${{ chart_data.insurance_revenue }}</p>
             <p>Patients Revenue: ${{ chart_data.patient_revenue }}</p>
-
         </div>
 
         <h2>Charts</h2>
         <canvas id="summaryChart"></canvas>
-    <a href="{% url 'accounts:admin_profile' %}">Back to Admin Profile</a>
 
-
-
-
-     <script>
-        // Chart.js code to create a summary chart
-        var ctx = document.getElementById('summaryChart').getContext('2d');
-        var summaryChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Total Revenue', 'Insurance Revenue', 'Patients Revenue'],
-                datasets: [{
-                    label: 'Summary',
-                    data: [
-                        {{ chart_data.total_revenue }},
-                        {{ chart_data.insurance_revenue }},
-                        {{ chart_data.patient_revenue }}
-                    ],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+        <script>
+            var ctx = document.getElementById('summaryChart').getContext('2d');
+            var summaryChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Total Revenue', 'Insurance Revenue', 'Patients Revenue'],
+                    datasets: [{
+                        label: 'Summary',
+                        data: [
+                            {{ chart_data.total_revenue }},
+                            {{ chart_data.insurance_revenue }},
+                            {{ chart_data.patient_revenue }}
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(54, 162, 235, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(54, 162, 235, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
-    </script>
-
+            });
+        </script>
+    </div>
 </body>
 </html>

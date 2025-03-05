@@ -1,25 +1,49 @@
-<!-- templates/Classes/admin_profile.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrative Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/administrative_profile.css' %}">
 </head>
 <body>
-    <h1>Administrative Staff Profile</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-    <h2>Actions</h2>
-    <a href="{% url 'accounts:appointments_list_admin' %}">View All Appointments</a>
-    <a href="{% url 'accounts:logout' %}">Logout</a>
-    <a href="{% url 'accounts:invoice_view' %}">Invoices</a>
-    <a href="{% url 'accounts:reporting_dashboard' %}">Reporting Dashboard</a>
+<div class="dashboard-container">
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+            <span>Health Care</span>
+        </div>
+         <nav>
+            <a href="{% url 'accounts:appointments_list_admin' %}">View All Appointments</a>
+            <a href="{% url 'accounts:invoice_view' %}">Invoices</a>
+            <a href="{% url 'accounts:reporting_dashboard' %}">Reporting Dashboard</a>
+             <a href="{% url 'accounts:logout' %}">Logout</a>
+        </nav>
 
+    </div>
 
-
+    <div class="profile-content">
+        <h2>Administrative Staff Profile</h2>
+        <div class="profile-details">
+            <p><strong>Name:</strong> {{ form.name.value }}</p>
+            <p><strong>Contact number:</strong> {{ form.contact_number.value }}</p>
+        </div>
+        <button id="edit-btn">Edit Profile</button>
+        <div id="edit-form" style="display:none;">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("edit-btn").onclick = function () {
+        const form = document.getElementById("edit-form");
+        form.style.display = form.style.display === "none" ? "block" : "none";
+    };
+</script>
 </body>
 </html>
