@@ -39,7 +39,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     text-align: left;
-    width: 500px;
+
 }
 .profile-details p {
     font-size: 16px;
@@ -92,4 +92,9 @@ button[type="submit"]:hover {
     font-weight: 600; /* Match the navbar text style */
     font-size: 18px; /* Adjust font size if necessary */
 }
-
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}

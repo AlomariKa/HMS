@@ -6,6 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment List</title>
+    <script>
+        function updateStatus(form) {
+            form.submit();  // Submit the form when the dropdown value changes
+        }
+    </script>
     <link rel="stylesheet" href="../../static/css/appointment_list_admin.css"> <!-- Link to the external CSS -->
     {% load static %}
 </head>
@@ -38,7 +43,7 @@
                     <tbody>
                     {% for appointment in appointments %}
                         <tr>
-                            <td>{{ appointment.patient }}</td>
+                            <td>{{ appointment.patient.name }}</td>
                             <td>{{ appointment.provider }}</td>
                             <td>{{ appointment.date }}</td>
                             <td>
@@ -61,7 +66,7 @@
                     </tbody>
                 </table>
             {% else %}
-                <p>No upcoming appointments.</p>
+                <p>No appointments found.</p>
             {% endif %}
         </div>
 

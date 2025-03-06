@@ -104,6 +104,10 @@ class Invoices(models.Model):
     )
     prescription = models.OneToOneField(Prescription, on_delete=models.SET_NULL, null=True)
     date = models.DateField()
-    total_amount = models.FloatField()
-    Insurance_percent_cover = models.FloatField()
+    total_amount = models.DecimalField(max_digits=5, decimal_places=2)
+    Insurance_percent_cover = models.DecimalField(max_digits=5, decimal_places=2)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Invoice {self.id} - {self.patient_name}"

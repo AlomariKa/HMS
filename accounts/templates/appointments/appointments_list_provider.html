@@ -1,39 +1,55 @@
-<!-- templates/Classes/appointments_list.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>All Appointments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment List</title>
+    <link rel="stylesheet" href="../../static/css/appointment_list_provider.css"> <!-- Link to the external CSS -->
+    {% load static %}
 </head>
 <body>
-    <h1>All Appointments</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Patient</th>
-                <th>Provider</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for appointment in appointments %}
-            <tr>
-                <td>{{ appointment.patient.name }}</td>
-                <td>{{ appointment.provider.name }}</td>
-                <td>{{ appointment.date }}</td>
-                <td>{{ appointment.time }}</td>
-                <td>{{ appointment.status }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No appointments found.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'accounts:provider_profile' %}">Back to Provider Profile</a>
+<div>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+            <span>Health Care</span>
+        </div>
+        <nav>
+            <a href="{% url 'accounts:provider_profile' %}">Back to Provider Profile</a>
+        </nav>
+
+    </div>
+
+    <main>
+        <div class="dashboard-container">
+            <h1>Appointment List</h1>
+            {% if appointments %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Provider</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.patient }}</td>
+                            <td>{{ appointment.provider }}</td>
+                            <td>{{ appointment.date }}</td>
+                            <td>{{ appointment.status }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No appointments found.</p>
+            {% endif %}
+        </div>
+
+    </main>
+</div>
 </body>
 </html>

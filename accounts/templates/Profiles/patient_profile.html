@@ -14,11 +14,11 @@
             <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
             <span>Health Care</span>
         </div>
-         <nav>
+        <nav>
             <a href="/appointments/schedule/">Schedule Appointment</a>
             <a href="/appointments/patient_dashboard/">Patient Dashboard</a>
-             <a href="/logout/">Logout</a>
-             <a href="/delete_profile/">Delete My Profile</a>
+            <a href="/logout/">Logout</a>
+            <a href="/delete_profile/">Delete My Profile</a>
         </nav>
 
     </div>
@@ -37,24 +37,24 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="name">Name:</label>
-                    {{ form.name }}
+                    <p>{{ form.name.label_tag }}</p>
+                    <p>{{ form.name }}</p>
                 </div>
                 <div class="form-group">
-                    <label for="age">Age:</label>
-                    {{ form.age }}
+                    <p>{{ form.age.label_tag }}</p>
+                    <p>{{ form.age }}</p>
                 </div>
                 <div class="form-group">
-                    <label for="medical_history">Medical History:</label>
-                    {{ form.medical_history }}
+                   <p>{{ form.medical_history.label_tag }}</p>
+                    <p>{{ form.medical_history }}</p>
                 </div>
                 <div class="form-group">
-                    <label for="allergies">Allergies:</label>
-                    {{ form.allergies }}
+                    <p>{{ form.allergies.label_tag }}</p>
+                    <p>{{ form.allergies }}</p>
                 </div>
                 <div class="form-group">
-                    <label for="insurance_detail">Insurance Detail:</label>
-                    {{ form.insurance_detail }}
+                   <p>{{ form.insurance_detail.label_tag }}</p>
+                    <p>{{ form.insurance_detail }}</p>
                 </div>
                 <button type="submit">Save</button>
             </form>

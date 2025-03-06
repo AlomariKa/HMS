@@ -26,7 +26,7 @@
         <div class="profile-details">
             <h1>Upcoming Appointments</h1>
             {% if appointments %}
-            <table>
+            <table class="table">
                 <thead>
                      <tr>
                          <th>Provider</th>
@@ -52,11 +52,11 @@
 
             <h2>Last Prescription</h2>
             {% if last_prescription %}
-                <p>Healthcare Provider: {{ last_prescription.provider }}</p>
-                <p>Medication: {{ last_prescription.medication }}</p>
-                <p>Dosage: {{ last_prescription.dosage }}</p>
-                <p>Instructions: {{ last_prescription.instructions }}</p>
-                <p>Date Created: {{ last_prescription.date_created }}</p>
+            <p><strong>Healthcare Provider:</strong> {{ last_prescription.provider }}</p>
+            <p><strong>Medication:</strong> {{ last_prescription.medication }}</p>
+                <p><strong>Dosage:</strong> {{ last_prescription.dosage }}</p>
+            <p><strong>Instructions:</strong> {{ last_prescription.instructions }}</p>
+            <p><strong>Date Created:</strong> {{ last_prescription.date_created }}</p>
             {% else %}
                 <p>No prescriptions found.</p>
             {% endif %}
@@ -65,9 +65,9 @@
             {% if prescriptions %}
             {% for prescription in prescriptions %}
             {% if not prescription.send %}
-                <p>Prescription in {{ prescription.date_created }} by {{ prescription.provider }} includes {{ prescription.medication }} <strong>NOT SENT</strong></p>
+                <p>Prescription in {{ prescription.date_created }} by {{ prescription.provider }} includes {{ prescription.medication }} <strong style="color: red;">NOT SENT</strong></p>
             {% else %}
-                <p>Prescription in {{ prescription.date_created }} by {{ prescription.provider }} includes {{ prescription.medication }} <strong>SENT</strong></p>
+                <p>Prescription in {{ prescription.date_created }} by {{ prescription.provider }} includes {{ prescription.medication }} <strong style="color: green;">SENT</strong></p>
                 {% endif %}
             {% endfor %}
             {% else %}

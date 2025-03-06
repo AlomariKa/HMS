@@ -72,6 +72,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'accounts.middleware.RedirectInvalidUrlsMiddleware',  # Add your middleware here
+
 ]
 
 ROOT_URLCONF = 'healthcare_management.urls'

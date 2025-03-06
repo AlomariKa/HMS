@@ -20,7 +20,7 @@
     </div>
     <div class="dashboard-container">
         <h1>Invoices List</h1>
-            {% if appointments %}
+            {% if invoices %}
         <table class="table">
             <thead>
             <tr>
@@ -50,17 +50,17 @@
                         <a href="{% url 'accounts:invoice_detail' invoice.id %}">Detail</a>
 
                     </td>
-                    <td>
+
                         {% if invoice.status == 'paid' %}
                             <td>IT is Paid</td>
                         {% else %}
                             <form action="{% url 'accounts:invoice_pay' invoice.id %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit">Pay</button>
+                              <td>  <button type="submit">Pay</button> </td>
                             </form>
                         {% endif %}
 
-                    </td>
+
                     <td>
                         <a href="{% url 'accounts:delete_invoice' invoice.id %}">Delete</a>
                     </td>

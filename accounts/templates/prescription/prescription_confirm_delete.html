@@ -2,16 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>confirm delete</title>
+    <title>Confirm Delete</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2C3E50;
+            padding: 15px;
+            color: white;
+        }
+
+        .navbar .logo img {
+            max-height: 50px;
+            margin-right: 10px;
+        }
+
+        .navbar nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .navbar nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2C3E50;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c82333;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo span {
+            font-weight: 600;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Are you sure you want to delete Prescription for {{prescription.patient}} by {{prescription.provider}}</h1>
-  <form method="post">
-    {% csrf_token %}<!-- Default send GET response -->
-    <button type="submit">Confirm</button>
-  </form>
-  <a href="{% url 'accounts:prescription_view' %}" >Back to Prescriptions</a>
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+            <span>Health Care</span>
+        </div>
+        <nav>
+            <a href="{% url 'accounts:prescription_view' %}" class="btn btn-secondary">Back to Prescriptions</a>
+        </nav>
+    </div>
 
-
+    <div class="container">
+        <h1>Are you sure you want to delete Prescription for {{ prescription.patient }} by {{ prescription.provider }}?</h1>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Confirm</button>
+        </form>
+    </div>
 </body>
 </html>

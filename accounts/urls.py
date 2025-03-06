@@ -21,8 +21,9 @@ from .views import (register, user_login, user_logout, delete_profile,
                     edit_invoice,
                     invoice_detail,
                     invoice_pay, add_invoice, delete_invoice, patients_insurance, service_description,
-                    reporting_dashboard, download_report_summary, download_report_detail
+                    reporting_dashboard, download_report_summary, download_report_detail, download_invoice
                     )
+
 
 
 app_name = 'accountsHSM'
@@ -54,6 +55,7 @@ urlpatterns = [
     path('pharmacy/<int:prescription_id>/',pharmacy,name='pharmacy'),
 
     #Invoices
+    path('invoice/download/<int:invoice_id>/', download_invoice, name='download_invoice'),
     path('invoices/', invoice_view , name='invoice_view'),
     path('invoice/add',add_invoice,name='add_invoice'),
     path('invoice/edit/<int:invoice_id>', edit_invoice, name='edit_invoice'),

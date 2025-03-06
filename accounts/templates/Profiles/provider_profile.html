@@ -1,22 +1,47 @@
-<!-- templates/Classes/provider_profile.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Provider Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/provider_profile.css' %}">
 </head>
 <body>
-    <h1>Healthcare Provider Profile</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-    <h2>Actions</h2>
-    <a href="{% url 'accounts:appointments_list_provider' %}">View All Appointments</a>
-    <a href="{% url 'accounts:logout' %}">Logout</a>
-    <a href="{% url 'accounts:prescription_view' %}">Prescriptions</a>
-
+<div class="dashboard-container">
+    <div class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
+            <span>Health Care</span>
+        </div>
+        <nav>
+            <a href="{% url 'accounts:appointments_list_provider' %}">View All Appointments</a>
+            <a href="{% url 'accounts:prescription_view' %}">Prescriptions</a>
+            <a href="{% url 'accounts:logout' %}">Logout</a>
+        </nav>
+    </div>
+    <div class="profile-content">
+        <h2>Provider Profile</h2>
+        <div class="profile-details">
+            <p><strong>Name:</strong> {{ form.name.value }}</p>
+            <p><strong>Specialization:</strong> {{ form.specialization.value }}</p>
+            <p><strong>Contact Number:</strong> {{ form.contact_number.value }}</p>
+        </div>
+        <button id="edit-btn">Edit Profile</button>
+        <div id="edit-form" style="display:none;">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("edit-btn").onclick = function () {
+        const form = document.getElementById("edit-form");
+        form.style.display = form.style.display === "none" ? "block" : "none";
+    };
+</script>
 </body>
 </html>

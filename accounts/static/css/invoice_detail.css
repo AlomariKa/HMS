@@ -1,0 +1,73 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2C3E50;
+    padding: 0;
+    margin: 0;
+    color: white;
+    height: 80px;
+}
+
+.navbar .logo img {
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navbar nav a:hover {
+    text-decoration: underline;
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Add space between logo and text */
+}
+
+.logo img {
+    width: 50px; /* Keep image size consistent */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.logo span {
+    font-weight: 600; /* Match the navbar text style */
+    font-size: 18px; /* Adjust font size if necessary */
+}
+
+.list_ubi {
+    display: flex;
+    width: 50%;
+    margin: 20px auto;
+    text-align: left;
+    flex-direction: column;
+    gap: 10px; /* Add space between items */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

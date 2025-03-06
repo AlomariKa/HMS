@@ -10,10 +10,12 @@ from .forms import PatientForm, AdministrativeStaffForm, HealthcareProviderForm,
 from .models import UserProfile,Appointment,Patient, AdministrativeStaff,HealthcareProvider,Prescription,Invoices
 from django.contrib.auth.decorators import login_required
 from .decorators import provider_required,admin_required,patient_required, new_provider_required,new_admin_required,new_patient_required
-from django.views.decorators.csrf import csrf_exempt
+
+
+
+
 
 # User Authentication #
-@csrf_exempt
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -31,7 +33,6 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'accounts/register.html', {'form': form})
 
-@csrf_exempt
 def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -57,6 +58,7 @@ def user_logout(request):
     messages.success(request, 'You have been logged out.')
     return redirect('accounts:login')  # Redirect to login page
 
+@patient_required
 @login_required
 def delete_profile(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
@@ -75,7 +77,7 @@ def delete_profile(request):
     return render(request, 'delete_profile/delete_profile.html', {'user_profile': request.user})
 
 
-
+@patient_required
 @login_required # ensures that only authenticated users can acces
 def patient_profile(request):
     try:
@@ -120,7 +122,7 @@ def create_patient_profile(request):
     return render(request, 'CreateProfiles/create_patient_profile.html', {'form': form})
 
 
-
+@admin_required
 @login_required
 def admin_profile(request):
     try:
@@ -158,7 +160,7 @@ def create_admin_profile(request):
 
     return render(request, 'CreateProfiles/create_admin_profile.html', {'form': form})
 
-
+@provider_required
 @login_required
 def provider_profile(request):
     try:
@@ -488,5 +490,36 @@ def download_report_detail(request):
 
     for appointment in appointments:
         writer.writerow([appointment.patient.name, appointment.provider, appointment.date, appointment.time,appointment.status])
+
+    return response
+
+
+@admin_required
+@login_required
+def download_invoice(request, invoice_id):
+    invoice = get_object_or_404(Invoices, id=invoice_id)
+
+    # Set the response type to CSV
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="Invoice_{invoice.id}.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(
+        ['Invoice ID', 'Patient Name', 'Total Amount', 'Insurance Cover', 'Payable Amount', 'Status', 'Date Created'])
+
+    # Calculate Payable Amount
+    insurance_cover = invoice.total_amount * (invoice.Insurance_percent_cover / 100)
+    payable_amount = invoice.total_amount - insurance_cover
+
+    # Write Invoice Data
+    writer.writerow([
+        invoice.id,
+        invoice.prescription.patient.name,
+        invoice.total_amount,
+        insurance_cover,
+        payable_amount,
+        invoice.status,
+        invoice.date_created
+    ])
 
     return response
