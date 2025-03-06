@@ -21,7 +21,7 @@ from .views import (register, user_login, user_logout, delete_profile,
                     edit_invoice,
                     invoice_detail,
                     invoice_pay, add_invoice, delete_invoice, patients_insurance, service_description,
-                    reporting_dashboard, download_report_summary, download_report_detail, download_invoice
+                    reporting_dashboard, download_report_summary, download_report_detail, download_invoice, download_revenue
                     )
 
 
@@ -69,6 +69,7 @@ urlpatterns = [
     path('reporting/dashboard/', reporting_dashboard, name='reporting_dashboard'),
     path('reporting/download/summary', download_report_summary, name='download_report_summary'),
     path('reporting/download/detail', download_report_detail, name='download_report_detail'),
+    path('reporting/download/revenue',download_revenue, name='download_revenue'),
 
     #Ptofiles
     path('patient_profile/', patient_profile, name='patient_profile'),

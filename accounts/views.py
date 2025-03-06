@@ -429,8 +429,9 @@ def reporting_dashboard(request):
 
     invoices = Invoices.objects.all()
     total_revenue = invoices.aggregate(Sum('total_amount'))['total_amount__sum'] or 0 # common way to calculate the total sum of a field in a Django QuerySet using the Django ORM
-
     insurance_revenue = invoices.annotate(weighted_value=F('total_amount') * F('Insurance_percent_cover')/100).aggregate(Sum('weighted_value'))['weighted_value__sum'] or 0
+    insurance_revenue = round(insurance_revenue, 2)
+
     patient_revenue = total_revenue - insurance_revenue
 
 
@@ -453,7 +454,6 @@ def reporting_dashboard(request):
 @login_required
 @admin_required
 def download_report_summary(request):
-    print("Hi Summary")
     response = HttpResponse(content_type='text/csv') # send HTTP responses back to the client // response is a CSV file.
     response['Content-Disposition'] = 'attachment; filename="report.csv"' # treat the response as a file attachment and prompts the user to download it with the filename report.csv.
 
@@ -475,7 +475,6 @@ def download_report_summary(request):
 @login_required
 @admin_required
 def download_report_detail(request):
-    print("Hi detail")
     response = HttpResponse(content_type='text/csv') # send HTTP responses back to the client // response is a CSV file.
     response['Content-Disposition'] = 'attachment; filename="report.csv"' # treat the response as a file attachment and prompts the user to download it with the filename report.csv.
 
@@ -521,5 +520,25 @@ def download_invoice(request, invoice_id):
         invoice.status,
         invoice.date_created
     ])
+
+    return response
+
+@login_required
+@admin_required
+def download_revenue(request):
+    response = HttpResponse(content_type='text/csv') # send HTTP responses back to the client // response is a CSV file.
+    response['Content-Disposition'] = 'attachment; filename="revenue.csv"' # treat the response as a file attachment and prompts the user to download it with the filename report.csv.
+
+    writer = csv.writer(response) # interface for writing CSV data into a file-like object
+    writer.writerow(['Total Revenue', 'Insurance Revenue','Patient Revenue'])  # Header row
+
+    invoices = Invoices.objects.all()
+    total_revenue = invoices.aggregate(Sum('total_amount'))['total_amount__sum'] or 0  # common way to calculate the total sum of a field in a Django QuerySet using the Django ORM
+    insurance_revenue = invoices.annotate(weighted_value=F('total_amount') * F('Insurance_percent_cover') / 100).aggregate(Sum('weighted_value'))['weighted_value__sum'] or 0
+    insurance_revenue = round(insurance_revenue, 2)
+
+    patient_revenue = total_revenue - insurance_revenue
+
+    writer.writerow([total_revenue, insurance_revenue,patient_revenue])
 
     return response

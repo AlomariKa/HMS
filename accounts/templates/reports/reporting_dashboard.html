@@ -82,11 +82,13 @@
 
         <p>Total Visits: {{ chart_data.total_visits }}</p>
 
-        <h2>Summary</h2>
+        <h2>Revenue</h2>
         <div>
             <p>Total Revenue: ${{ chart_data.total_revenue }}</p>
             <p>Insurance Revenue: ${{ chart_data.insurance_revenue }}</p>
             <p>Patients Revenue: ${{ chart_data.patient_revenue }}</p>
+            <a href="{% url 'accounts:download_revenue' %}">>Download Revenue</a>
+
         </div>
 
         <h2>Charts</h2>
