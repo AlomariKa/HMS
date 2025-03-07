@@ -95,7 +95,7 @@ class Prescription(models.Model):
     send = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Prescription for {self.patient.name} by {self.provider.name}"
+        return f"prescription for {self.patient.name} by {self.provider.name}"
 
 class Invoices(models.Model):
     STATUS_CHOICES = (

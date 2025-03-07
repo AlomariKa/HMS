@@ -24,7 +24,7 @@ class RedirectInvalidUrlsMiddleware:
             'download_report_summary', 'download_report_detail',
             'patient_profile', 'admin_profile', 'provider_profile',
             'create_patient_profile', 'create_admin_profile',
-            'create_provider_profile','download_revenue'
+            'create_provider_profile','download_revenue','admin'
         ]
 
 

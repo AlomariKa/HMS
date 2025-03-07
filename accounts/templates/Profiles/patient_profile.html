@@ -38,7 +38,7 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <p>{{ form.name.label_tag }}</p>
-                    <p>{{ form.name }}</p>
+                    <p class="input">{{ form.name }}</p>
                 </div>
                 <div class="form-group">
                     <p>{{ form.age.label_tag }}</p>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group">
                     <p>{{ form.allergies.label_tag }}</p>
-                    <p>{{ form.allergies }}</p>
+                    <p class="input">{{ form.allergies }}</p>
                 </div>
                 <div class="form-group">
                    <p>{{ form.insurance_detail.label_tag }}</p>

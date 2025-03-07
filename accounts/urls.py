@@ -80,4 +80,5 @@ urlpatterns = [
     path('patient/profile/create/', create_patient_profile, name='create_patient_profile'),
     path('administrativestaff/profile/create/', create_admin_profile, name='create_admin_profile'),
     path('provider/profile/create/', create_provider_profile, name='create_provider_profile'),
+
 ]

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserProfile, Patient, AdministrativeStaff, HealthcareProvider, Appointment, Prescription, Invoices
 
-# UserCreationForm is a type of form used to collect information from users when they create an account on a website or application.
+# UserCreationForm is built-in Django form that handles the creation of new users.
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
     user_type = forms.ChoiceField(choices=UserProfile.USER_TYPE_CHOICES)

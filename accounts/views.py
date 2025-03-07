@@ -221,9 +221,9 @@ def patient_dashboard(request):
 
     user_profile = request.user.userprofile
     patient = user_profile.patient  # Access the Patient through UserProfile
-    appointments = patient.appointment_set.all()  # because of foreign key Django provides a way to access all related Appointment objects through the patient instance.
-    last_prescription = Prescription.objects.filter(patient=patient).order_by('-date_created').first()  # Get the last prescription
-    prescriptions = patient.prescription_set.all()
+    appointments = patient.appointment_set.select_related('patient').all()  # because of foreign key Django provides a way to access all related Appointment objects through the patient instance.
+    last_prescription = Prescription.objects.select_related('patient').filter(patient=patient).order_by('-date_created').first()  # Get the last prescription
+    prescriptions = patient.prescription_set.select_related('patient').all()
 
     # prescription_send_values = [prescription.send for prescription in prescriptions]
     # print(prescription_send_values)
@@ -239,7 +239,7 @@ def patient_dashboard(request):
 @login_required
 def appointments_list_admin(request):
 
-    appointments = Appointment.objects.all()
+    appointments = Appointment.objects.select_related('patient','provider').all()
 
     if request.method == 'POST':
         appointment_id = request.POST.get('appointment_id')
@@ -253,14 +253,14 @@ def appointments_list_admin(request):
 @provider_required
 @login_required
 def appointments_list_provider(request):
-    appointments = Appointment.objects.all()
+    appointments = Appointment.objects.select_related('patient','provider').all()
 
     return render(request, 'appointments/appointments_list_provider.html', {'appointments': appointments})
 
 @provider_required
 @login_required
 def prescription_view(request):
-    prescriptions = Prescription.objects.all()  # Get all prescriptions
+    prescriptions = Prescription.objects.select_related('patient','provider').all()  # Get all prescriptions
 
     return render(request, 'prescription/prescription_view.html', {'prescriptions': prescriptions})
 
@@ -326,7 +326,7 @@ def pharmacy(request,prescription_id):
 @admin_required
 @login_required
 def invoice_view(request):
-    invoices = Invoices.objects.all()
+    invoices = Invoices.objects.select_related('prescription').all()
     for invoice in invoices:
         invoice.payable_amount = invoice.total_amount * (1 - (invoice.Insurance_percent_cover / 100))
     return render(request,'invoices/invoice_view.html', {'invoices': invoices})
@@ -421,13 +421,13 @@ def reporting_dashboard(request):
 
 
     # Filter data based on the date range
-    appointments = Appointment.objects.all()
+    appointments = Appointment.objects.select_related('patient','provider').all()
     if start_date and end_date:
         appointments = appointments.filter(date__range=[start_date, end_date])
 
     total_visits = appointments.count()
 
-    invoices = Invoices.objects.all()
+    invoices = Invoices.objects.select_related('prescription').all()
     total_revenue = invoices.aggregate(Sum('total_amount'))['total_amount__sum'] or 0 # common way to calculate the total sum of a field in a Django QuerySet using the Django ORM
     insurance_revenue = invoices.annotate(weighted_value=F('total_amount') * F('Insurance_percent_cover')/100).aggregate(Sum('weighted_value'))['weighted_value__sum'] or 0
     insurance_revenue = round(insurance_revenue, 2)
