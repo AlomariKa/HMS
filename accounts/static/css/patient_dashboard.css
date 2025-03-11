@@ -4,9 +4,12 @@ body {
     background-color: #f4f6f9;
     margin: 0;
 }
+
 .dashboard-container {
     width: 100%;
 }
+
+/* Navbar Styling */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -15,36 +18,44 @@ body {
     padding: 1rem 2rem;
     color: white;
 }
+
 .navbar a {
     color: white;
     margin-left: 20px;
     text-decoration: none;
     font-weight: 600;
 }
+
 .navbar a:hover {
     text-decoration: underline;
 }
+
 .logo img {
     width: 50px;
     margin-right: 10px;
 }
+
+/* Profile Section Styling */
 .profile-content {
     display: flex;
     justify-content: center;
     margin-top: 50px;
 }
+
 .profile-details {
     background: white;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     text-align: left;
-
 }
+
 .profile-details p {
     font-size: 16px;
     margin-bottom: 10px;
 }
+
+/* Edit Button */
 #edit-btn {
     background-color: #1f3b73;
     color: white;
@@ -56,15 +67,20 @@ body {
     width: 100%;
     text-align: center;
 }
+
 #edit-btn:hover {
     background-color: #17305a;
 }
+
+/* Form Styling */
 form {
     margin-top: 20px;
 }
+
 .form-group {
     margin-bottom: 15px;
 }
+
 button[type="submit"] {
     background-color: #17305a;
     color: white;
@@ -73,10 +89,12 @@ button[type="submit"] {
     border-radius: 5px;
     cursor: pointer;
 }
+
 button[type="submit"]:hover {
     background-color: #17305a;
 }
 
+/* Logo Styling */
 .logo {
     display: flex;
     align-items: center; /* Align items vertically */
@@ -92,9 +110,63 @@ button[type="submit"]:hover {
     font-weight: 600; /* Match the navbar text style */
     font-size: 18px; /* Adjust font size if necessary */
 }
+
+/* Table Styling */
 .table th,
 .table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .profile-content {
+        flex-direction: column; /* Stack profile details vertically on smaller screens */
+        margin-top: 30px;
+    }
+
+    .profile-details {
+        width: 90%; /* Limit width on smaller screens */
+        padding: 20px;
+    }
+
+    .navbar {
+        flex-direction: column; /* Stack navbar items vertically */
+        align-items: flex-start; /* Align navbar items to the left */
+    }
+
+    .navbar a {
+        margin-left: 0; /* Remove left margin on smaller screens */
+        margin-top: 10px; /* Add some space between navbar links */
+    }
+
+    #edit-btn,
+    button[type="submit"] {
+        width: auto; /* Allow buttons to take only the space they need */
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-details {
+        width: 100%; /* Allow profile details to take full width */
+        padding: 15px;
+    }
+
+    .navbar {
+        padding: 1rem; /* Adjust padding for smaller screens */
+    }
+
+    .navbar a {
+        font-size: 14px; /* Adjust font size for navbar links */
+    }
+
+    .logo img {
+        width: 40px; /* Reduce logo size */
+    }
+
+    .table th,
+    .table td {
+        padding: 6px; /* Adjust padding for smaller screens */
+    }
 }

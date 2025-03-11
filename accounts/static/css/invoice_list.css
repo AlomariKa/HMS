@@ -5,12 +5,13 @@ body {
     color: #333;
 }
 
+/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #2C3E50;
-    padding: 0;
+    padding: 0 20px;
     margin: 0;
     color: white;
     height: 80px;
@@ -31,18 +32,17 @@ body {
     text-decoration: underline;
 }
 
+/* Dashboard Container */
 .dashboard-container {
     display: flex;
     width: 100%;
     text-align: center;
     flex-direction: column;
     gap: 10px;
-}
-.logo img {
-    width: 50px;
-    margin-right: 10px;
+    align-items: center;
 }
 
+/* Logo Styling */
 .logo {
     display: flex;
     align-items: center; /* Align items vertically */
@@ -56,5 +56,60 @@ body {
 
 .logo span {
     font-weight: 600; /* Match the navbar text style */
-    font-size: 18px; /* Adjust font size if necessary */
+    font-size: 18px; /* Adjust font size */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    /* Navbar */
+    .navbar {
+        padding: 0 15px; /* Adjust padding for smaller screens */
+        height: 70px; /* Adjust navbar height */
+    }
+
+    .navbar .logo img {
+        max-height: 40px; /* Reduce logo size */
+    }
+
+    .navbar nav a {
+        font-size: 1.1em;
+        margin: 0 5px; /* Adjust margin */
+    }
+
+    /* Dashboard Container */
+    .dashboard-container {
+        gap: 15px;
+    }
+
+    /* Logo */
+    .logo span {
+        font-size: 16px; /* Adjust font size */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Navbar */
+    .navbar {
+        padding: 0 10px; /* Further reduce padding */
+        height: 60px; /* Reduce navbar height */
+    }
+
+    .navbar .logo img {
+        max-height: 35px; /* Further reduce logo size */
+    }
+
+    .navbar nav a {
+        font-size: 1em;
+        margin: 0 5px;
+    }
+
+    /* Dashboard Container */
+    .dashboard-container {
+        gap: 20px; /* Increase gap for smaller screens */
+    }
+
+    /* Logo */
+    .logo span {
+        font-size: 14px; /* Reduce font size */
+    }
 }

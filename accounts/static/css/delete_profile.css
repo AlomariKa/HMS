@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -46,4 +45,50 @@ button:hover {
 
 .btn-secondary:hover {
     background-color: #5a6268; /* Darker shade on hover */
+}
+
+/* Media Queries for Smaller Screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 15px auto; /* Reduce margin for smaller screens */
+        max-width: 90%; /* Make the container width responsive */
+    }
+
+    h1 {
+        font-size: 1.5em; /* Slightly reduce heading size */
+    }
+
+    p {
+        font-size: 14px; /* Reduce text size for better readability on small screens */
+    }
+
+    button {
+        padding: 8px 15px; /* Slightly reduce button padding */
+        margin: 5px 0; /* Reduce margin between buttons */
+        width: 100%; /* Make buttons full-width on smaller screens */
+    }
+
+    .btn-secondary {
+        width: 100%; /* Make secondary button full-width on small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+        margin: 10px auto; /* Further reduce margin on very small screens */
+    }
+
+    h1 {
+        font-size: 1.2em; /* Further reduce heading size for small devices */
+    }
+
+    p {
+        font-size: 13px; /* Adjust paragraph size for readability */
+    }
+
+    button {
+        padding: 8px 12px; /* Further reduce button padding */
+    }
 }

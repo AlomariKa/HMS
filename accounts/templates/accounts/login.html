@@ -11,11 +11,10 @@
             <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
         </div>
         <h2>Login</h2>
-{% if form.errors %}
-    <ul style="color: red;">
-        {% for field, errors in form.errors.items %}
-            {% for error in errors %}
-                <li>{{ error|slice:"0:" }}</li>  {% endfor %}
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
     </ul>
 {% endif %}

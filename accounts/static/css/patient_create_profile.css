@@ -9,6 +9,7 @@ body {
     height: 100vh;
 }
 
+/* Profile Container */
 .profile-container {
     width: 800px;
     padding: 20px;
@@ -18,16 +19,19 @@ body {
     text-align: center;
 }
 
+/* Logo Styling */
 .logo img {
     width: 100px;
-    margin-top: 200px;
+    margin-top: 20px; /* Adjust top margin */
 }
 
+/* Heading Styling */
 h2 {
     margin-bottom: 20px;
     color: #333;
 }
 
+/* Form Group */
 .form-group {
     text-align: left;
     margin-bottom: 15px;
@@ -39,6 +43,7 @@ label {
     font-weight: bold;
 }
 
+/* Input and Textarea Styling */
 input, textarea {
     width: 100%;
     padding: 10px;
@@ -48,6 +53,7 @@ input, textarea {
     box-sizing: border-box;
 }
 
+/* Button Styling */
 button {
     background-color: #4CAF50;
     color: white;
@@ -61,3 +67,46 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .profile-container {
+        width: 90%; /* Adjust width to 90% for smaller screens */
+        max-width: 600px; /* Limit maximum width */
+    }
+
+    .logo img {
+        width: 80px; /* Decrease logo size */
+        margin-top: 30px; /* Adjust the margin for logo on smaller screens */
+    }
+
+    input, textarea {
+        padding: 12px; /* Increase padding for easier touch interactions */
+    }
+
+    button {
+        padding: 12px 20px; /* Increase button size for better touch interaction */
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-container {
+        width: 95%; /* Adjust width to 95% on very small screens */
+        max-width: 450px; /* Further limit the width */
+        padding: 15px; /* Reduce padding for very small screens */
+    }
+
+    .logo img {
+        width: 70px; /* Further decrease logo size */
+        margin-top: 40px; /* Adjust the logo margin */
+    }
+
+    input, textarea {
+        padding: 14px; /* Increase input padding for touch-friendly experience */
+    }
+
+    button {
+        padding: 14px 22px; /* Further increase button padding */
+    }
+}
+

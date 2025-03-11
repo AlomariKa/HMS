@@ -4,6 +4,7 @@ body {
     background-color: #f4f6f9;
     margin: 0;
 }
+
 .dashboard-container {
     display: flex;
     width: 100%;
@@ -11,6 +12,7 @@ body {
     flex-direction: column;
     gap: 10px;
 }
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -18,16 +20,20 @@ body {
     background-color: #2C3E50;
     padding: 1rem 2rem;
     color: white;
+    flex-wrap: wrap; /* Allow navbar to wrap on smaller screens */
 }
+
 .navbar a {
     color: white;
     margin-left: 20px;
     text-decoration: none;
     font-weight: 600;
 }
+
 .navbar a:hover {
     text-decoration: underline;
 }
+
 .logo img {
     width: 50px;
     margin-right: 10px;
@@ -47,5 +53,51 @@ body {
 .logo span {
     font-weight: 600; /* Match the navbar text style */
     font-size: 18px; /* Adjust font size if necessary */
+}
+
+/* Media Queries for Smaller Screens */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Stack navbar items vertically on smaller screens */
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .navbar a {
+        margin: 5px 0;
+        font-size: 1.2em;
+    }
+
+    .logo img {
+        width: 40px; /* Slightly reduce logo size */
+    }
+
+    .logo span {
+        font-size: 16px; /* Adjust text size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .navbar {
+        padding: 8px;
+        justify-content: flex-start; /* Align items to the left */
+    }
+
+    .navbar a {
+        font-size: 1.1em;
+        margin: 5px 0;
+    }
+
+    .logo img {
+        width: 35px; /* Reduce logo size more on very small screens */
+    }
+
+    .logo span {
+        font-size: 14px; /* Further reduce text size */
+    }
 }
 

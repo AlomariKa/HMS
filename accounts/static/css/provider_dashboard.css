@@ -37,6 +37,10 @@ body {
     text-decoration: none;
 }
 
+.logout-btn:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
 .dashboard-title {
     text-align: center;
     font-size: 1.8em;
@@ -74,4 +78,29 @@ body {
     text-decoration: none;
     margin-top: 10px;
     display: inline-block;
+}
+
+.action-btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dashboard-title {
+        font-size: 1.5em;
+    }
+
+    .section {
+        padding: 15px;
+    }
 }

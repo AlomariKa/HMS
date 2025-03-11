@@ -1,34 +1,45 @@
 from django.contrib.auth.models import User
-# Django’s built-in user model
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class UserProfile(models.Model):
     USER_TYPE_CHOICES = (
-        # first value is stored in the database,
-        # and the second value is the human-readable name.
         ('patient', 'Patient'),
         ('admin', 'Administrative Staff'),
         ('provider', 'Healthcare Provider'),
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # Each user has exactly one UserProfile, and the profile has exactly one user.
-    # If a user is deleted, their profile will also be deleted
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.user_type}"
+
+    @property
+    def is_patient(self):
+        return self.user_type == 'patient'
+
+    @property
+    def is_admin(self):
+        return self.user_type == 'admin'
+
+    @property
+    def is_provider(self):
+        return self.user_type == 'provider'
+
 
 
 
 # Create a signal to create/update the user profile
 # Django signals to automatically create or update a UserProfile whenever a User instance is created or saved.
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 # This signal creates a UserProfile when a new User instance is created:
-@receiver(post_save, sender=User) # connects post_save signal to the create_user_profile function for User model.
+
+@receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
 
-# This signal ensures that the UserProfile is saved whenever the User instance is saved:
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()

@@ -1,5 +1,6 @@
 # accounts/views.py
 import csv
+from datetime import datetime
 
 from django.contrib.auth import login, authenticate, logout # These functions are used for handling user authentication, logging users in and out.
 from django.contrib import messages # This module is used to display messages to users.
@@ -39,12 +40,16 @@ def register(request):
 
 def user_login(request):
     if request.method == 'POST':
+        print('user_login ')
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
+            print(request.user.is_authenticated)  # This should print True if login is successful
             user_type = user.userprofile.user_type
+            print(user_type)
             if user_type == 'patient':
                 return redirect('accounts:patient_profile')
             elif user_type == 'admin':
@@ -54,6 +59,7 @@ def user_login(request):
             messages.success(request, 'Login successful.')
         else:
             messages.error(request, 'Invalid username or password.')
+
     return render(request, 'accounts/login.html')
 
 
@@ -84,6 +90,7 @@ def delete_profile(request):
 @patient_required
 @login_required # ensures that only authenticated users can acces
 def patient_profile(request):
+    print('patient_profile')
     try:
         user_profile = request.user.userprofile  # Access the UserProfile
         patient = user_profile.patient
@@ -92,10 +99,10 @@ def patient_profile(request):
         # Redirect to profile creation page if the user does not have a Patient profile
         return redirect('accounts:create_patient_profile')  # You need to create this view
 
-    if not hasattr(request.user, 'userprofile') or not hasattr(request.user.userprofile, 'patient'):
-        #hasattr check if an object has a specific attribute
-        return redirect('accounts:login')
-
+    # if not hasattr(request.user, 'userprofile') or not hasattr(request.user.userprofile, 'patient'):
+    #     #hasattr check if an object has a specific attribute
+    #     return redirect('accounts:login')
+    print('patient_profile hello')
     if request.method == 'POST':
         form = PatientForm(request.POST, instance=patient)
         # Without instance=patient, the form would create a new patient.
@@ -129,13 +136,18 @@ def create_patient_profile(request):
 @admin_required
 @login_required
 def admin_profile(request):
+    print('admin_profile hello')
     try:
+
         user_profile = request.user.userprofile
+        print(user_profile)
         admin = user_profile.administrativestaff
     except AdministrativeStaff.DoesNotExist:
+        print('AdministrativeStaff')
         return redirect('accounts:create_admin_profile')
 
     if not hasattr(request.user, 'userprofile') or not hasattr(request.user.userprofile, 'administrativestaff'):
+        print('hasattr')
         return redirect('accounts:login')
 
     if request.method == 'POST':
@@ -144,6 +156,7 @@ def admin_profile(request):
             form.save()
             return redirect('accounts:admin_profile')  # Redirect to the same page to see updated info
     else:
+        print('else  hello AdministrativeStaffForm')
         form = AdministrativeStaffForm(instance=admin)
 
     return render(request, 'Profiles/admin_profile.html', {'form': form})
@@ -204,19 +217,23 @@ def create_provider_profile(request):
 @patient_required
 @login_required
 def schedule_appointment(request):
-    user_profile = request.user.userprofile  # Access the UserProfile
-    patient = user_profile.patient  # Access the Patient through UserProfile
-
     if request.method == 'POST':
-        form = AppointmentForm(request.POST)
+        date_str = request.POST.get('date')
+        if date_str:
+            try:
+                selected_date = datetime.strptime(date_str, '%Y-%m-%d').date()
+                form = AppointmentForm(request.POST, initial={'date': selected_date})
+            except ValueError:
+                form = AppointmentForm(request.POST)
+        else:
+            form = AppointmentForm(request.POST)
         if form.is_valid():
             appointment = form.save(commit=False)
-            appointment.patient = patient  # This links the appointment to the specific patient.
+            appointment.patient = request.user.userprofile.patient
             appointment.save()
-            return redirect('accounts:patient_dashboard')  # Redirect to view upcoming appointments
+            return redirect('accounts:patient_dashboard')
     else:
         form = AppointmentForm()
-
     return render(request, 'appointments/schedule_appointment.html', {'form': form})
 
 @patient_required

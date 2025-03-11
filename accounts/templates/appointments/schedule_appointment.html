@@ -8,28 +8,40 @@
     {% load static %}
 </head>
 <body>
-    <div>
+<div>
     <div class="navbar">
         <div class="logo">
             <img src="{% static 'images/logo.png' %}" alt="Health Care Logo">
             <span>Health Care</span>
         </div>
-         <nav>
+        <nav>
             <a href="/appointments/patient_dashboard/">Patient Dashboard</a>
-             <a href="/logout/">Logout</a>
-             <a href="/delete_profile/">Delete My Profile</a>
+            <a href="/logout/">Logout</a>
+            <a href="/delete_profile/">Delete My Profile</a>
         </nav>
 
     </div>
 
-        <main>
-            <h1>Appointment Scheduling</h1>
-            <form id="appointmentForm" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="confirm-btn">Confirm Your Appointment</button>
-            </form>
-        </main>
-    </div>
+    <main>
+        <h1>Appointment Scheduling</h1>
+        <form id="appointmentForm" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="confirm-btn">Confirm Your Appointment</button>
+        </form>
+    </main>
+</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.getElementById('id_date');
+            if (dateInput) {
+                dateInput.addEventListener('change', function() {
+                    document.getElementById('appointmentForm').submit();
+                });
+            }
+        });
+    </script>
 </body>
+
+
 </html>
