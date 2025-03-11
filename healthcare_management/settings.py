@@ -143,7 +143,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = "//"
+LOGIN_URL = "/"
 
 # SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS // make sure that all data exchanged between the user and your website is encrypted and secure.
 # SESSION_COOKIE_SECURE = True  # Ensure cookies are only sent over HTTPS // This prevents the cookies from being sent over insecure connections, which could be intercepted by malicious actors.
