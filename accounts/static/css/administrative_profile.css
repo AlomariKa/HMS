@@ -13,6 +13,7 @@ body {
     background-color: #2C3E50;
     padding: 15px;
     color: white;
+    flex-wrap: wrap; /* Allow elements to wrap on smaller screens */
 }
 
 .navbar .logo img {
@@ -91,6 +92,7 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #17305a;
 }
+
 .logo {
     display: flex;
     align-items: center; /* Align items vertically */
@@ -105,4 +107,87 @@ button[type="submit"]:hover {
 .logo span {
     font-weight: 600; /* Match the navbar text style */
     font-size: 18px; /* Adjust font size if necessary */
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Stack navbar items vertically on small screens */
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .navbar nav {
+        margin-top: 10px;
+    }
+
+    .profile-content {
+        padding: 15px;
+        width: 90%;
+    }
+
+    .profile-content h2 {
+        font-size: 1.5em;
+    }
+
+    .profile-details p {
+        font-size: 14px;
+    }
+
+    #edit-btn {
+        padding: 8px;
+    }
+
+    #edit-form {
+        padding: 8px;
+    }
+
+    button[type="submit"] {
+        padding: 8px 16px;
+    }
+
+    .logo img {
+        max-height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .navbar {
+        flex-direction: column; /* Stack items vertically */
+        align-items: flex-start;
+        padding: 8px;
+    }
+
+    .navbar .logo img {
+        max-height: 35px;
+    }
+
+    .profile-content {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .profile-content h2 {
+        font-size: 1.3em;
+    }
+
+    .profile-details p {
+        font-size: 13px;
+    }
+
+    #edit-btn {
+        padding: 8px;
+    }
+
+    button[type="submit"] {
+        padding: 8px 16px;
+    }
+
+    .logo img {
+        max-height: 30px;
+    }
 }

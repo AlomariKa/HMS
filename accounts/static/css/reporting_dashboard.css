@@ -7,12 +7,13 @@ body {
     color: #333;
 }
 
+/* Navbar Styling */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #2C3E50;
-    padding: 10px 20px; /* Add some padding around the navbar content */
+    padding: 15px 20px;
     color: white;
     height: 70px;
 }
@@ -26,27 +27,24 @@ body {
     color: white;
     text-decoration: none;
     margin: 0 10px;
+    font-weight: bold;
 }
 
 .navbar nav a:hover {
     text-decoration: underline;
 }
 
+/* Dashboard Container Styling */
 .dashboard-container {
-    /* Existing styles for the dashboard container */
-    max-width: 800px; /* Limit the width of the container */
-    margin: 20px auto; /* Center the container on the page */
-    padding: 20px; /* Add some padding around the content */
-    background-color: #fff; /* Add a white background */
-    border-radius: 5px; /* Add rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    max-width: 1000px; /* Increased max width for larger screens */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.logo img {
-    width: 50px;
-    margin-right: 10px;
-}
-
+/* Logo Styling */
 .logo {
     display: flex;
     align-items: center;
@@ -63,26 +61,36 @@ body {
     font-size: 18px;
 }
 
-/* Styles for the form elements (optional) */
+/* Form Elements */
 form {
-    /* Existing form styles */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
 label {
     display: block;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 input[type="date"],
 select {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
+input[type="date"]:focus,
+select:focus {
+    border-color: #4CAF50; /* Focus effect */
+    outline: none;
+}
+
+/* Submit Button Styling */
 button[type="submit"] {
     background-color: #4CAF50;
     color: white;
@@ -90,9 +98,14 @@ button[type="submit"] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Styles for the table (optional) */
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -101,28 +114,75 @@ table {
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px;
     text-align: left;
 }
 
-/* Styles for the summary section (optional) */
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Alternating row colors for readability */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Summary Section Styling */
 .summary div {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
 }
 
-/* Styles for the chart (optional) */
+/* Chart Styling */
 canvas {
     margin-top: 20px;
 }
 
-button.btn.btn-success { /* Style the buttons */
-    display: inline-block; /* Or display: block; if you want them to take full width */
+/* Success Button Styling */
+button.btn-success {
+    display: inline-block;
     padding: 10px 20px;
     background-color: #4CAF50; /* Green */
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-success:hover {
+    background-color: #45a049;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px 15px;
+    }
+
+    .dashboard-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    table {
+        font-size: 14px; /* Smaller font size for mobile devices */
+    }
+
+    .summary div {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo span {
+        font-size: 16px; /* Adjust logo text size for smaller screens */
+    }
 }

@@ -10,17 +10,19 @@ body {
 }
 
 .profile-container {
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
     padding: 20px;
     background-color: #f9f9f9;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .logo img {
     width: 100px;
-    margin-top: 200px;
+    margin-top: 20px;
 }
 
 h2 {
@@ -46,6 +48,8 @@ input, textarea {
     border-radius: 5px;
     outline: none;
     box-sizing: border-box;
+    margin: 0 auto;
+    display: block;
 }
 
 button {
@@ -60,4 +64,52 @@ button {
 
 button:hover {
     background-color: #45a049;
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .profile-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .logo img {
+        width: 80px;
+    }
+
+    input, textarea {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-container {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .logo img {
+        width: 60px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 8px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+    }
 }

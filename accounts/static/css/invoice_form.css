@@ -5,12 +5,13 @@ body {
     color: #333;
 }
 
+/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #2C3E50;
-    padding: 0;
+    padding: 0 20px;
     margin: 0;
     color: white;
     height: 70px;
@@ -31,6 +32,7 @@ body {
     text-decoration: underline;
 }
 
+/* Dashboard Container */
 .dashboard-container {
     display: flex;
     width: 100%;
@@ -40,38 +42,102 @@ body {
     align-items: center;
 }
 
-.logo img {
-    width: 50px;
-    margin-right: 10px;
-}
-
+/* Logo Styling */
 .logo {
     display: flex;
-    align-items: center; /* Align items vertically */
-    gap: 10px; /* Add space between logo and text */
+    align-items: center;
+    gap: 10px;
 }
 
 .logo img {
-    width: 50px; /* Keep image size consistent */
-    height: auto; /* Maintain aspect ratio */
+    width: 50px;
+    height: auto;
 }
 
 .logo span {
-    font-weight: 600; /* Match the navbar text style */
-    font-size: 18px; /* Adjust font size if necessary */
+    font-weight: 600;
+    font-size: 18px;
 }
 
+/* Form Styling */
 form {
-    width: 30%; /* Adjust the width as needed */
-    text-align: left; /* Align text to the left within the form */
-    padding: 20px; /* Add some space around the form elements */
-    border: 1px solid #ddd; /* Add a subtle border to the form */
-    border-radius: 5px; /* Add rounded corners to the form */
+    width: 30%;
+    text-align: left;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white; /* Ensure the form has a white background */
 }
-
 
 .submit-button {
-    display: block; /* Make the button a block-level element */
-    width: 100%; /* Make the button take up the full width of its container */
-    margin-top: 20px; /* Add spacing above the button */
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    /* Navbar */
+    .navbar {
+        padding: 0 10px;
+        height: 60px; /* Reduce height for smaller screens */
+    }
+
+    .navbar .logo img {
+        max-height: 40px; /* Reduce logo size */
+    }
+
+    .navbar nav a {
+        font-size: 1.1em;
+        margin: 0 5px; /* Adjust margin for smaller screens */
+    }
+
+    /* Dashboard Container */
+    .dashboard-container {
+        gap: 15px;
+    }
+
+    /* Logo */
+    .logo span {
+        font-size: 16px; /* Adjust font size */
+    }
+
+    /* Form Styling */
+    form {
+        width: 50%; /* Increase form width for medium screens */
+        padding: 15px; /* Adjust padding */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Navbar */
+    .navbar {
+        padding: 0 5px;
+        height: 50px; /* Further reduce height */
+    }
+
+    .navbar .logo img {
+        max-height: 35px; /* Reduce logo size */
+    }
+
+    .navbar nav a {
+        font-size: 1em;
+        margin: 0 5px;
+    }
+
+    /* Dashboard Container */
+    .dashboard-container {
+        gap: 20px;
+    }
+
+    /* Logo */
+    .logo span {
+        font-size: 14px; /* Reduce font size further */
+    }
+
+    /* Form Styling */
+    form {
+        width: 80%; /* Increase form width for smaller screens */
+        padding: 10px; /* Adjust padding */
+    }
 }

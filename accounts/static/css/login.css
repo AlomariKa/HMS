@@ -7,6 +7,7 @@ body {
     background-color: #f0f0f0; /* Light gray background */
 }
 
+/* Login Container */
 .login-container {
     width: 300px;
     padding: 20px;
@@ -17,11 +18,13 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Logo Styling */
 .logo img {
     width: 100px; /* Adjust logo size */
     margin-bottom: 20px;
 }
 
+/* Form Group */
 .form-group {
     margin-bottom: 15px;
     text-align: left;
@@ -40,6 +43,7 @@ body {
     border-radius: 3px;
 }
 
+/* Button Styling */
 button {
     width: 100%;
     padding: 10px;
@@ -50,6 +54,7 @@ button {
     cursor: pointer;
 }
 
+/* Links Styling */
 .links {
     margin-top: 15px;
 }
@@ -57,4 +62,45 @@ button {
 .links a {
     text-decoration: none;
     color: #007bff;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .login-container {
+        width: 80%; /* Adjust width on smaller screens */
+        max-width: 350px; /* Ensure the login container doesn't grow too large */
+        padding: 15px; /* Reduce padding */
+    }
+
+    .logo img {
+        width: 80px; /* Reduce logo size */
+    }
+
+    .form-group input {
+        padding: 10px; /* Slightly increase input padding for better usability */
+    }
+
+    button {
+        padding: 12px; /* Increase button padding for a better touch experience */
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        width: 90%; /* Further reduce width on very small screens */
+        max-width: 320px; /* Limit max-width to prevent the form from being too wide */
+        padding: 10px; /* Reduce padding further */
+    }
+
+    .logo img {
+        width: 70px; /* Further reduce logo size */
+    }
+
+    .form-group input {
+        padding: 12px; /* Increase padding for better input field usability */
+    }
+
+    button {
+        padding: 14px; /* Increase button padding */
+    }
 }

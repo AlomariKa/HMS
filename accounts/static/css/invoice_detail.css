@@ -5,13 +5,13 @@ body {
     color: #333;
 }
 
+/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #2C3E50;
-    padding: 0;
-    margin: 0;
+    padding: 0 20px;
     color: white;
     height: 80px;
 }
@@ -31,6 +31,7 @@ body {
     text-decoration: underline;
 }
 
+/* Dashboard Container */
 .dashboard-container {
     display: flex;
     width: 100%;
@@ -38,36 +39,100 @@ body {
     flex-direction: column;
     gap: 10px;
 }
-.logo img {
-    width: 50px;
-    margin-right: 10px;
-}
 
+/* Logo Styling */
 .logo {
     display: flex;
-    align-items: center; /* Align items vertically */
-    gap: 10px; /* Add space between logo and text */
+    align-items: center;
+    gap: 10px;
 }
 
 .logo img {
-    width: 50px; /* Keep image size consistent */
-    height: auto; /* Maintain aspect ratio */
+    width: 50px;
+    height: auto;
 }
 
 .logo span {
-    font-weight: 600; /* Match the navbar text style */
-    font-size: 18px; /* Adjust font size if necessary */
+    font-weight: 600;
+    font-size: 18px;
 }
 
+/* List Styling */
 .list_ubi {
     display: flex;
     width: 50%;
     margin: 20px auto;
     text-align: left;
     flex-direction: column;
-    gap: 10px; /* Add space between items */
+    gap: 10px;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    /* Navbar */
+    .navbar {
+        padding: 0 10px;
+        height: 70px; /* Reduce height for smaller screens */
+    }
+
+    .navbar .logo img {
+        max-height: 40px; /* Adjust logo size for smaller screens */
+    }
+
+    .navbar nav a {
+        font-size: 1.1em; /* Increase text size for better readability */
+    }
+
+    /* Dashboard Container */
+    .dashboard-container {
+        gap: 15px; /* Increase gap for spacing */
+    }
+
+    /* Logo */
+    .logo span {
+        font-size: 16px; /* Reduce font size slightly */
+    }
+
+    /* List Styling */
+    .list_ubi {
+        width: 80%; /* Increase list width on smaller screens */
+        padding: 15px; /* Adjust padding */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Navbar */
+    .navbar {
+        padding: 0 5px;
+        height: 60px; /* Further reduce height */
+    }
+
+    .navbar .logo img {
+        max-height: 35px; /* Reduce logo size even more */
+    }
+
+    .navbar nav a {
+        font-size: 1em; /* Further reduce font size */
+        margin: 0 5px; /* Adjust margin for smaller screens */
+    }
+
+    /* Dashboard Container */
+    .dashboard-container {
+        gap: 20px; /* Increase gap for more breathing room */
+    }
+
+    /* Logo */
+    .logo span {
+        font-size: 14px; /* Further reduce font size */
+    }
+
+    /* List Styling */
+    .list_ubi {
+        width: 90%; /* Make the list even wider */
+        padding: 10px; /* Reduce padding for smaller screens */
+    }
 }

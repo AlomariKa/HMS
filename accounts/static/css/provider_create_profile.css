@@ -15,10 +15,12 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     text-align: center;
+    padding: 20px;
 }
 
 .logo img {
     width: 100px;
+    margin-bottom: 20px;
 }
 
 h2 {
@@ -44,6 +46,12 @@ input, textarea {
     border-radius: 5px;
     outline: none;
     box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+input:focus, textarea:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
 button {
@@ -54,8 +62,26 @@ button {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+    width: 80%; /* Adjust button width to match input fields */
 }
 
 button:hover {
     background-color: #45a049;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Same focus style as input */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .profile-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    input, textarea, button {
+        width: 100%;
+    }
 }
