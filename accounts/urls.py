@@ -21,7 +21,8 @@ from .views import (register, user_login, user_logout, delete_profile,
                     edit_invoice,
                     invoice_detail,
                     invoice_pay, add_invoice, delete_invoice, patients_insurance, service_description,
-                    reporting_dashboard, download_report_summary, download_report_detail, download_invoice, download_revenue
+                    reporting_dashboard, download_report_summary, download_report_detail, download_invoice, download_revenue,
+                    receive_device_data, device_data_view
                     )
 
 
@@ -80,5 +81,9 @@ urlpatterns = [
     path('patient/profile/create/', create_patient_profile, name='create_patient_profile'),
     path('administrativestaff/profile/create/', create_admin_profile, name='create_admin_profile'),
     path('provider/profile/create/', create_provider_profile, name='create_provider_profile'),
+
+    #Device
+    path('device-data/', receive_device_data, name='receive_device_data'),
+    path('device-data-view/', device_data_view, name='device_data_view'),  # New URL
 
 ]

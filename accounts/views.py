@@ -7,9 +7,13 @@ from django.db.models import Sum,F
 from django.http import HttpResponse
 from django.shortcuts import render, redirect , get_object_or_404
 from .forms import PatientForm, AdministrativeStaffForm, HealthcareProviderForm,AppointmentForm,PrescriptionForm,UserRegisterForm, InvoicesForm
-from .models import UserProfile,Appointment,Patient, AdministrativeStaff,HealthcareProvider,Prescription,Invoices
+from .models import UserProfile,Appointment,Patient, AdministrativeStaff,HealthcareProvider,Prescription,Invoices,DeviceData
 from django.contrib.auth.decorators import login_required
 from .decorators import provider_required,admin_required,patient_required, new_provider_required,new_admin_required,new_patient_required
+from .serializers import DeviceDataSerializer
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 
@@ -542,3 +546,32 @@ def download_revenue(request):
     writer.writerow([total_revenue, insurance_revenue,patient_revenue])
 
     return response
+
+
+@api_view(['POST'])
+def receive_device_data(request):
+    # Create a serializer instance with the incoming data
+    serializer = DeviceDataSerializer(data=request.data)
+
+    # Check if the data is valid
+    if serializer.is_valid():
+        # Save the valid data to the database
+        serializer.save()
+
+        # Return a 201 Created response with the serialized data
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    # If the data is invalid, return a 400 Bad Request response with error details
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def device_data_view(request):
+    # Retrieve all device data along with the related patient names
+    device_data = DeviceData.objects.all()
+    # Check if there is any device data
+    if not device_data:
+        message = "No device data available."
+    else:
+        message = None  # No message if data is available
+
+    # Render the HTML template with the device data and message
+    return render(request, 'device_data.html', {'device_data': device_data, 'message': message})

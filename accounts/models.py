@@ -111,3 +111,12 @@ class Invoices(models.Model):
 
     def __str__(self):
         return f"Invoice {self.id} - {self.patient_name}"
+
+class DeviceData(models.Model):
+    patient_id = models.CharField(max_length=10, null=True)
+    heart_rate = models.IntegerField()
+    blood_pressure = models.CharField(max_length=20)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.patient.name} - {self.timestamp}"

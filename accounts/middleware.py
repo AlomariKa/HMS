@@ -9,7 +9,7 @@ class RedirectInvalidUrlsMiddleware:
 
     def __call__(self, request):
         # List of valid URLs
-        valid_urls = valid_urls = [
+        valid_urls =  [
             'register', 'login', 'logout', 'delete_profile',
             'password_reset', 'password_reset_done',
             'password_reset_confirm', 'password_reset_complete',
@@ -24,7 +24,8 @@ class RedirectInvalidUrlsMiddleware:
             'download_report_summary', 'download_report_detail',
             'patient_profile', 'admin_profile', 'provider_profile',
             'create_patient_profile', 'create_admin_profile',
-            'create_provider_profile','download_revenue','admin'
+            'create_provider_profile','download_revenue', 'receive_device_data',
+            'device_data_view'
         ]
 
 

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Data</title>
+</head>
+<body>
+    <h1>Device Data</h1>
+
+    {% if message %}
+        <p>{{ message }}</p>  <!-- Display the message if there is no data -->
+    {% else %}
+        <table border="1">
+            <tr>
+                <th>Patient Id</th>
+                <th>Heart Rate</th>
+                <th>Blood Pressure</th>
+                <th>Timestamp</th>
+            </tr>
+            {% for data in device_data %}
+            <tr>
+                <td>{{ data.patient_id }}</td>  <!-- Access the patient's name -->
+                <td>{{ data.heart_rate }}</td>
+                <td>{{ data.blood_pressure }}</td>
+                <td>{{ data.timestamp }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
